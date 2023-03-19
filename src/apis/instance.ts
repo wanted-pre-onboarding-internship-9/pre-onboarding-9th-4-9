@@ -11,4 +11,4 @@ const instance = axios.create({
 
 export default instance;
 
-export const chartApi = () => instance.get('');
+export const getDataAPI = () => instance.get('');
