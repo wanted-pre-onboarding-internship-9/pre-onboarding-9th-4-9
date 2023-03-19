@@ -1,4 +1,10 @@
-import { createBrowserRouter, createRoutesFromElements, Navigate, Route } from 'react-router-dom';
+import {
+  Navigate,
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
+
 import App from '../App';
 import MainPage from '../pages/MainPage';
 
@@ -11,23 +17,22 @@ import MainPage from '../pages/MainPage';
 // );
 
 const router = createBrowserRouter([
-    {
+  {
+    path: '/',
+    element: <App />,
+    errorElement: <div />,
+    children: [
+      {
+        index: true,
         path: '/',
-        element: <App />,
-        errorElement: <div />,
-        children: [
-            {
-                index: true,
-                path: '/',
-                element: <MainPage />,
-            },
-            {
-                path: '*',
-                element: <Navigate replace to='/' />,
-            },
-        ],
-    },
+        element: <MainPage />,
+      },
+      {
+        path: '*',
+        element: <Navigate replace to='/' />,
+      },
+    ],
+  },
 ]);
-
 
 export default router;
