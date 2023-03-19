@@ -1,8 +1,17 @@
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
-
+import { QueryClient, QueryClientProvider } from 'react-query';
 import router from './shared/Router';
 import GlobalStyle from './styles/GlobalStyle';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -10,6 +19,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <>
     <GlobalStyle />
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </>
 );
