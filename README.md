@@ -1,4 +1,4 @@
-# 3주차 기업과제
+# 4주차 기업과제
 
 > 원티드에서 진행하는 4주차 [스위치원원](http://www.switchwon.com/ko/index.html) 기업과제 입니다.
 
