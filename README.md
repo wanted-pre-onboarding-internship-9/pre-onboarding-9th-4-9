@@ -1,46 +1,184 @@
-# Getting Started with Create React App
+# 3주차 기업과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 원티드에서 진행하는 4주차 [스위치원원](http://www.switchwon.com/ko/index.html) 기업과제 입니다.
 
-## Available Scripts
+<br/>
 
-In the project directory, you can run:
+## [🔗 배포 URL]()
 
-### `npm start`
+<br/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## ⚙️ 프로젝트의 실행 방법
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+> 💡주의 : 해당 프로젝트의 데이터는 mock-data 입니다.
 
-### `npm test`
+**Install**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install
+or
+yarn install
+```
 
-### `npm run build`
+**Start**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm start
+or
+yarn start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br/>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## ✅ 요구사항
 
-### `npm run eject`
+#### Assignment 1
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+> Assignment 1
+-
+-
+-
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Assignment 2
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+> Assignment 2
+-
+-
+-
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### Assignment 3
 
-## Learn More
+> Assignment 3
+-
+-
+-
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📽️ 데모 영상
+
+
+## 📚 기능 설명
+
+**공통**
+
+
+<br/>
+
+## ⚙️ 기술 스택
+
+
+
+<br/>
+
+
+## 🗂️ 폴더구조
+
+```bash
+ㄴ 📁 public
+   ㄴ 📁 mock
+      ㄴ 📄 mock_data.json
+ㄴ 📁 src
+   ㄴ 📁 apis
+      ㄴ 📄 instance.ts
+   ㄴ 📁 components
+      ㄴ 📁 ui
+         ㄴ 📄 Button.tsx
+      ㄴ 📄 Filter.tsx
+      ㄴ 📄 TimeChart.tsx
+   ㄴ 📁 hooks
+      ㄴ 📄 useChartDataState.ts
+   ㄴ 📁 page
+      ㄴ 📄 Home.tsx
+   ㄴ 📁 styles
+      ㄴ 📄 GlobalStyle.tsx
+      ㄴ 📄 index.css
+      ㄴ 📄 theme.ts
+   ㄴ 📁 types
+      ㄴ 📄 style.d.ts
+      ㄴ 📄 types.d.ts
+   ㄴ 📄 index.tsx
+```
+
+<br/>
+
+## 🕖 타임라인
+
+**_2023.03.07 ~ 2023.03.10 (4일)_**
+| 기간 | 진행 사항 |
+|------|------|
+|2023/03/07| 사용 기술 스택 및 라이브러리 선정,git convention 및 폴더 구조 작성 |
+|2023/03/08| 기능구현 |
+|2023/03/09| 코드 리뷰 및 best practice 선정 |
+|2023/03/10| 코드 리팩토링 |
+
+<br/>
+
+## 🧑🏻‍🏫 협업 방법
+
+1. 빠른 소통과 업무 협업을 위해 `슬랙` 채널을 사용합니다.
+2. 이슈별로 기능 구현 후 PR을 생성합니다.
+3. `코드 리뷰`를 통해 `Best practice` 선정 후 develop에 merge합니다.
+4. 추가 리팩토링 실시 후 배포합니다.
+
+<br/>
+
+## 📖 Commit Message Prefix
+
+- `Feat`: 새로운 기능 추가
+- `Fix`: 버그 수정
+- `Docs`: 문서 수정, 파일 추가 및 삭제, 파일명 변경
+- `Style`: 스타일 관련 기능(코드 포맷팅, 세미콜론 누락 등)
+- `Refactor`: 코드 리팩토링
+- `Test`: 테스트 코드, 리펙토링 테스트 코드 추가
+- `Chore`: 빌드 업무 수정, 패키지 매니저 수정(.gitignore 수정 등)
+- `Init`: 초기셋팅 (esLint 적용 등)
+
+<br/>
+
+## 📖 Git Flow
+
+- **master(main)** : 배포하는 브랜치
+- **develop** : 개발 브랜치
+- **feature** : 단위 기능을 개발하는 브랜치
+- **hotfix** : master 브랜치로 배포를 했는데 버그가 생겼을 떄 긴급 수정하는 브랜치 입니다.
+
+예시)
+**feature/main-name**
+**feature/reservations**-**name**
+**hotfix/issue-issueName**
+
+<br/>
+
+## 📖 Git Convention
+
+- 안쓰는 코드들(콘솔, 주석)은 쌓아두지 말고 지워주세요!
+- Pull → Commit → Push 순서로 작업해주세요!
+- Push 전 코드를 실행하여 에러를 먼저 확인한 후, PR해요!
+- PR을 거쳐 모든 팀원들이 승인 및 코드리뷰 후, merge 합니다. conflict 해결은 모든 팀원이 함께 참여해요!
+- PR승인 후 squash and merge 를 하여 커밋을 합쳐주세요 > merge 된 branch는 꼭 삭제 해주세요!
+  (\*develop branch는 개발 branch입니다. 삭제하지 말아주세요)
+
+<br/>
+
+## 🥸 팀원 소개
+
+<table>
+<tbody>
+<tr>
+<td  align="center">
+<a  href="https://github.com/minhyeonhong"><img  src="https://avatars.githubusercontent.com/u/90454621?v=4(https://avatars.githubusercontent.com/u/90454621?v=4)"  width="100px;"  alt=""/>
+<br  /><sub><b>민현홍</b></sub></a><br  /></td>
+
+<td  align="center"><a  href="https://github.com/Hwang-Junsu"><img  src="https://avatars.githubusercontent.com/u/80745897?v=4(https://avatars.githubusercontent.com/u/80745897?v=4)"  width="100px;"  alt=""/><br  /><sub><b>황준수</b></sub></a><br  /></td>
+
+<td  align="center"><a  href="https://github.com/eunrain"><img  src="https://avatars.githubusercontent.com/u/113877276?v=4(https://avatars.githubusercontent.com/u/113877276?v=4)"  width="100px;"  alt=""/><br  /><sub><b>고은비</b></sub></a><br  /></td>
+
+<td  align="center"><a  href="https://github.com/yeon-kk"><img  src="https://avatars.githubusercontent.com/u/86847564?v=4(https://avatars.githubusercontent.com/u/86847564?v=4)"  width="100px;"  alt=""/><br  /><sub><b>곽연경</b></sub></a><br  /></td>
+
+<td  align="center"><a  href="https://github.com/whl5105"><img  src="https://avatars.githubusercontent.com/u/73993670?v=4(https://avatars.githubusercontent.com/u/73993670?v=4)"  width="100px;"  alt=""/><br  /><sub><b>최수인</b></sub></a><br  /></td>
+
+<td  align="center"><a  href="https://github.com/minhyeonhong"><img  src="https://avatars.githubusercontent.com/u/90454621?v=4(https://avatars.githubusercontent.com/u/90454621?v=4)"  width="100px;"  alt=""/><br  /><sub><b>김민영</b></sub></a><br  /></td>
+
+</tbody>
+</table>
