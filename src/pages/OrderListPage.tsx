@@ -25,6 +25,9 @@ const OrderListPage = () => {
   const [sortByTimePlaceholder, setSortByTimePlaceholder] = useState(
     searchParams.get('sort-time') || '정렬 선택'
   );
+  const [filterByStatusPlaceholder, setFilterByStatusPlaceholder] = useState(
+    searchParams.get('status') || '정렬 선택'
+  );
 
   const splitDateAndTime = (dateWithTime: string) => {
     const [date, time] = dateWithTime.split(' ');
@@ -49,6 +52,13 @@ const OrderListPage = () => {
     setSortByIdPlaceholder('정렬 선택');
     searchParams.delete('sort-id');
     searchParams.set('sort-time', event.target.value);
+    setSearchParams(searchParams);
+  };
+
+  const handleFilterBySatus: React.ChangeEventHandler<
+    HTMLSelectElement
+  > = event => {
+    searchParams.set('status', event.target.value);
     setSearchParams(searchParams);
   };
 
@@ -89,7 +99,15 @@ const OrderListPage = () => {
                   <option value='내림차순'>내림차순</option>
                 </Select>
               </Th>
-              <Th scope='col'>주문 처리 상태</Th>
+              <Th scope='col'>
+                주문 처리 상태
+                <Select
+                  placeholder={filterByStatusPlaceholder}
+                  onChange={handleFilterBySatus}>
+                  <option value='완료'>완료</option>
+                  <option value='미완료'>미완료</option>
+                </Select>
+              </Th>
               <Th scope='col'>고객 번호</Th>
               <Th scope='col'>고객 이름</Th>
               <Th scope='col'>가격</Th>

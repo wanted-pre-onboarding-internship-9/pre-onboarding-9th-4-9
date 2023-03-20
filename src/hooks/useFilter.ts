@@ -9,12 +9,24 @@ const useFilter = (orders: OrderType[] | undefined) => {
   const requestedSortById = searchParams.get('sort-id');
   const requestedSortByTime = searchParams.get('sort-time');
   const requestedPage = Number(searchParams.get('page')) || 1;
+  const requestedFilterByStatus =
+    searchParams.get('status') === '완료'
+      ? true
+      : searchParams.get('status') === '미완료'
+      ? false
+      : null;
 
   let filteredOrders = orders;
 
   filteredOrders = orders?.filter(
     order => requestedDate && order.transaction_time.startsWith(requestedDate)
   );
+
+  if (requestedFilterByStatus !== null) {
+    filteredOrders = orders?.filter(
+      order => order.status === requestedFilterByStatus
+    );
+  }
 
   if (requestedSortById) {
     const sortById = (a: OrderType, b: OrderType) => {
