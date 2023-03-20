@@ -29,29 +29,29 @@ const OrderProvider = ({ children }: IContextProps) => {
 
   const handleSortById = useCallback((order: OrderType) => {
     setOrderData(prev => {
-      const newArray = [...prev];
-      newArray.sort((current, next) =>
+      const newData = [...prev];
+      newData.sort((current, next) =>
         order === 'asc' ? current.id - next.id : next.id - current.id
       );
-      return newArray;
+      return newData;
     });
   }, []);
 
   const handleSortByTime = useCallback((order: OrderType) => {
     setOrderData(prev => {
-      const newArray = [...prev];
-      newArray.sort((current, next) =>
+      const newData = [...prev];
+      newData.sort((current, next) =>
         order === 'asc'
           ? new Date(current.transaction_time).getTime() -
             new Date(next.transaction_time).getTime()
           : new Date(next.transaction_time).getTime() -
             new Date(current.transaction_time).getTime()
       );
-      return newArray;
+      return newData;
     });
   }, []);
 
-  useEffect(() => {
+  const fetchData = () => {
     instance
       .get('')
       .then(({ data }) =>
@@ -61,11 +61,37 @@ const OrderProvider = ({ children }: IContextProps) => {
             (order: IOrder) => order.transaction_time.split(' ')[0] === TODAY
           );
 
+          if (!isLoading && sortType) {
+            const [standard, order] = sortType.split(':');
+            if (standard === 'id')
+              newData.sort((current, next) =>
+                order === 'asc' ? current.id - next.id : next.id - current.id
+              );
+            if (standard === 'time')
+              newData.sort((current, next) =>
+                order === 'asc'
+                  ? new Date(current.transaction_time).getTime() -
+                    new Date(next.transaction_time).getTime()
+                  : new Date(next.transaction_time).getTime() -
+                    new Date(current.transaction_time).getTime()
+              );
+          }
+
           return newData;
         })
       )
       .finally(() => setIsLoading(false));
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(fetchData, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [fetchData]);
 
   useEffect(() => {
     if (!isLoading && sortType) {

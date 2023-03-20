@@ -1,4 +1,4 @@
-import { TriangleUpIcon } from '@chakra-ui/icons';
+import { MinusIcon, TriangleUpIcon } from '@chakra-ui/icons';
 import { Box, Th, Thead, Tr } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useSearchParams } from 'react-router-dom';
@@ -47,17 +47,33 @@ const TableHead = () => {
   return (
     <Thead>
       <Tr>
-        <StyledTh onClick={onClickSortById} cursor='pointer' width='5'>
-          <Box display='inline-block' mr='2'>
+        <StyledTh width='5'>
+          <Box
+            display='inline-block'
+            mr='2'
+            cursor='pointer'
+            onClick={onClickSortById}>
             주문번호
           </Box>
-          <StyledUpIcon isReverse={sortType === 'id:desc'} />
+          {(sortType || ' ').split(':')[0] === 'id' ? (
+            <StyledUpIcon isReverse={sortType === 'id:desc'} />
+          ) : (
+            <MinusIcon color='orange.300' />
+          )}
         </StyledTh>
-        <StyledTh onClick={onClickSortByTime} cursor='pointer'>
-          <Box display='inline-block' mr='2'>
+        <StyledTh>
+          <Box
+            display='inline-block'
+            mr='2'
+            cursor='pointer'
+            onClick={onClickSortByTime}>
             거래시간
           </Box>
-          <StyledUpIcon isReverse={sortType === 'time:desc'} />
+          {(sortType || ' ').split(':')[0] === 'time' ? (
+            <StyledUpIcon isReverse={sortType === 'time:desc'} />
+          ) : (
+            <MinusIcon color='orange.300' />
+          )}
         </StyledTh>
         <StyledTh>주문처리상태</StyledTh>
         <StyledTh>고객번호</StyledTh>

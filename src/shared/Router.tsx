@@ -1,7 +1,6 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 
 import App from '../App';
-import { OrderProvider } from '../hooks/useOrderData';
 import MainPage from '../pages/MainPage';
 
 const router = createBrowserRouter([
@@ -13,11 +12,7 @@ const router = createBrowserRouter([
       {
         index: true,
         path: '/',
-        element: (
-          <OrderProvider>
-            <MainPage />
-          </OrderProvider>
-        ),
+        element: <MainPage />,
       },
       {
         path: '*',
