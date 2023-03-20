@@ -17,3 +17,11 @@ export type TToDayMockData = {
   pages: number[];
   totalPageNumber: number;
 };
+
+export type TFilter = {
+  currentPageNumber: string;
+  id: string;
+  transaction_time: string;
+  status: string;
+  customer_name: string;
+};

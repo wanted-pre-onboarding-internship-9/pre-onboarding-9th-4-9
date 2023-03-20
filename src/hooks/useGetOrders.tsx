@@ -1,6 +1,5 @@
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
-
 import instance from '../apis/instance';
 import {
   ONE_PAGE_LENGTH,
@@ -10,6 +9,7 @@ import {
 } from '../types/mockDataTypes';
 
 const useGetOrders = () => {
+
   const getMockData = async () => {
     const response = await instance.get('');
     return response.data;

@@ -1,34 +1,69 @@
+import _ from 'lodash';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import useGetOrders from '../hooks/useGetOrders';
-import { TMockData } from '../types/mockDataTypes';
+import { TFilter, TMockData } from '../types/mockDataTypes';
 
 const MainPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { toDayMockData, pages, totalPageNumber, isLoading } = useGetOrders();
+  const [ordersState, setOrdersState] = useState<TMockData[]>([]);
+  const [filter, setFilter] = useState<TFilter>({
+    currentPageNumber: '1',
+    id: 'false',
+    transaction_time: 'false',
+    status: 'all',
+    customer_name: ''
+  });
 
-  const currentPageNumber = Number(searchParams.get('currentPageNumber')) || 1;
-  const id = searchParams.get('id') === 'true' ? true : false;
+  const setFiltering = (key: string, value?: string) => {
+    switch (key) {
+      case 'id':
+        setFilter({ ...filter, [key]: filter.id === 'true' ? 'false' : 'true' });
+        break;
+      case 'transaction_time':
+        setFilter({ ...filter, [key]: filter.transaction_time === 'true' ? 'false' : 'true' });
+        break;
+      default:
+        setFilter({ ...filter, [key]: value });
+        break;
+    }
+  };
 
-  const setCurrentPageNumber = (selectPageNumber: string) => {
-    setSearchParams({ ...searchParams, currentPageNumber: selectPageNumber });
-  }
+  useEffect(() => {
+    if (toDayMockData === undefined) return;
+    setOrdersState(toDayMockData);
+  }, [toDayMockData])
 
-  const setFiltering = (key: string, value: string) => {
-    setSearchParams({ ...searchParams, [key]: value });
-  }
+  useEffect(() => {
+    if (toDayMockData === undefined) return;
+    setOrdersState(
+      toDayMockData?.filter((item: TMockData) =>
+        item.index >= 1 + (Number(filter.currentPageNumber) - 1) * 50 &&
+        item.index <= Number(filter.currentPageNumber) * 50
+      )
+    )
+  }, [filter.currentPageNumber])
 
-  const setSort = (key: string) => {
-    const getKey = searchParams.get(key) || true;
-    console.log("get", getKey);
+  useEffect(() => {
+    setOrdersState(
+      filter.id === 'false' ?
+        _.sortBy(ordersState, 'id')
+        :
+        _.sortBy(ordersState, 'id').reverse()
+    )
+  }, [filter.id])
 
-    setSearchParams({ ...searchParams, [key]: !getKey });
-  }
-
-  // console.log(toDayMockData);
-  // console.log(pages);
-  // console.log(isLoading);
+  useEffect(() => {
+    setOrdersState(
+      filter.transaction_time === 'false' ?
+        _.sortBy(ordersState, 'transaction_time')
+        :
+        _.sortBy(ordersState, 'transaction_time').reverse()
+    )
+  }, [filter.transaction_time])
 
   return (
     <StMainPageWrap>
@@ -47,9 +82,10 @@ const MainPage = () => {
             </tr>
           </thead>
           <StTbody>
-            {toDayMockData
-              ?.filter((item: TMockData) =>
-                item.index >= 1 + ((currentPageNumber - 1) * 50) && item.index <= currentPageNumber * 50
+            {
+              ordersState?.filter((item: TMockData) =>
+                item.index >= 1 + (Number(filter.currentPageNumber) - 1) * 50 &&
+                item.index <= Number(filter.currentPageNumber) * 50
               ).map((item: TMockData) => (
                 <tr key={item.index}>
                   <td>{item.index}</td>
@@ -60,18 +96,26 @@ const MainPage = () => {
                   <td>{item.customer_name}</td>
                   <td>{item.currency}</td>
                 </tr>
-              ))}
+              ))
+            }
           </StTbody>
         </StTable>
         <div>
           <StPageBtnWrap>
             {pages?.map(page => (
-              <button key={page} onClick={() => setCurrentPageNumber(page.toString())}>{page}</button>
+              <button
+                key={page}
+                onClick={() => setFiltering('currentPageNumber', page.toString())}>
+                {page}
+              </button>
             ))}
           </StPageBtnWrap>
           <div>
-            <button onClick={() => setSort('id')}>주문번호</button>
-            <button onClick={() => setSort('transaction_time')}>거래일&거래시간</button>
+            <button onClick={() => setFiltering('id')}>주문번호</button>
+            <br />
+            <button onClick={() => setFiltering('transaction_time')}>
+              거래일&거래시간
+            </button>
           </div>
         </div>
       </StTableWrap>
@@ -82,26 +126,26 @@ const MainPage = () => {
 export default MainPage;
 
 const StMainPageWrap = styled.div`
-  height:100%;
-  display:flex;
-  flex-direction:column;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap:10px;
-`
+  gap: 10px;
+`;
 
 const StSearchWrap = styled.div`
   height: 10%;
-  background-color : orange;
-`
+  background-color: orange;
+`;
 
 const StTableWrap = styled.div`
-  height:70%;
-`
+  height: 70%;
+`;
 
 const StTable = styled.table`
   height: 80%;
-  text-align :center;
+  text-align: center;
   th {
     border: solid 1px red;
   }
@@ -111,7 +155,7 @@ const StTable = styled.table`
 `;
 const StTbody = styled.tbody`
   height: 100%;
-  display:block;
+  display: block;
   overflow: auto;
 `;
 
@@ -123,4 +167,3 @@ const StPageBtnWrap = styled.div`
     border: solid 1px blue;
   }
 `;
-
