@@ -15,6 +15,7 @@ const useFilter = (orders: OrderType[] | undefined) => {
       : searchParams.get('status') === '미완료'
       ? false
       : null;
+  const requestedSearch = searchParams.get('search');
 
   let filteredOrders = orders;
 
@@ -50,6 +51,14 @@ const useFilter = (orders: OrderType[] | undefined) => {
     };
 
     filteredOrders = filteredOrders?.sort(sortByTime);
+  }
+
+  if (requestedSearch) {
+    filteredOrders = filteredOrders?.filter(order =>
+      order.customer_name
+        .toUpperCase()
+        .includes(requestedSearch.toLocaleUpperCase())
+    );
   }
 
   const totalPage = filteredOrders ? Math.ceil(filteredOrders.length / 50) : 0;

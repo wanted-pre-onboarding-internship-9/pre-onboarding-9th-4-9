@@ -1,5 +1,9 @@
+import { SearchIcon, SmallCloseIcon } from '@chakra-ui/icons';
 import {
+  IconButton,
   Input,
+  InputGroup,
+  InputRightElement,
   Select,
   Table,
   Tbody,
@@ -8,7 +12,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import Pagination from '../components/Pagination';
@@ -18,6 +22,7 @@ const OrderListPage = () => {
   const { isLoading, pageItems, isFetching, totalPage } = useGetOrders();
   const [searchParams, setSearchParams] = useSearchParams();
   const requestedDate = searchParams.get('date') || '2023-03-08';
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const [sortByIdPlaceholder, setSortByIdPlaceholder] = useState(
     searchParams.get('sort-id') || '정렬 선택'
@@ -60,6 +65,23 @@ const OrderListPage = () => {
   > = event => {
     searchParams.set('status', event.target.value);
     setSearchParams(searchParams);
+  };
+
+  const handleSearchName: React.FormEventHandler<HTMLFormElement> = event => {
+    event.preventDefault();
+    const targetEl = event.target as HTMLFormElement;
+    const inputValue = (targetEl[0] as HTMLInputElement).value;
+
+    searchParams.set('search', inputValue);
+    setSearchParams(searchParams);
+  };
+
+  const handleResetSearch = () => {
+    if (searchInputRef.current) {
+      searchInputRef.current.value = '';
+      searchParams.delete('search');
+      setSearchParams(searchParams);
+    }
   };
 
   const hasOrder = pageItems && pageItems.length > 0;
@@ -109,7 +131,27 @@ const OrderListPage = () => {
                 </Select>
               </Th>
               <Th scope='col'>고객 번호</Th>
-              <Th scope='col'>고객 이름</Th>
+              <Th scope='col'>
+                고객 이름
+                <form onSubmit={handleSearchName}>
+                  <InputGroup>
+                    <Input ref={searchInputRef} />
+                    <InputRightElement>
+                      <IconButton
+                        type='submit'
+                        aria-label='Search database'
+                        icon={<SearchIcon />}
+                      />
+                      <IconButton
+                        onClick={handleResetSearch}
+                        type='button'
+                        aria-label='Search database'
+                        icon={<SmallCloseIcon />}
+                      />
+                    </InputRightElement>
+                  </InputGroup>
+                </form>
+              </Th>
               <Th scope='col'>가격</Th>
             </Tr>
           </Thead>
