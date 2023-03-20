@@ -15,16 +15,22 @@ const MainPage = () => {
     id: 'false',
     transaction_time: 'false',
     status: 'all',
-    customer_name: ''
+    customer_name: '',
   });
 
   const setFiltering = (key: string, value?: string) => {
     switch (key) {
       case 'id':
-        setFilter({ ...filter, [key]: filter.id === 'true' ? 'false' : 'true' });
+        setFilter({
+          ...filter,
+          [key]: filter.id === 'true' ? 'false' : 'true',
+        });
         break;
       case 'transaction_time':
-        setFilter({ ...filter, [key]: filter.transaction_time === 'true' ? 'false' : 'true' });
+        setFilter({
+          ...filter,
+          [key]: filter.transaction_time === 'true' ? 'false' : 'true',
+        });
         break;
       default:
         setFilter({ ...filter, [key]: value });
@@ -35,35 +41,34 @@ const MainPage = () => {
   useEffect(() => {
     if (toDayMockData === undefined) return;
     setOrdersState(toDayMockData);
-  }, [toDayMockData])
+  }, [toDayMockData]);
 
   useEffect(() => {
     if (toDayMockData === undefined) return;
     setOrdersState(
-      toDayMockData?.filter((item: TMockData) =>
-        item.index >= 1 + (Number(filter.currentPageNumber) - 1) * 50 &&
-        item.index <= Number(filter.currentPageNumber) * 50
+      toDayMockData?.filter(
+        (item: TMockData) =>
+          item.index >= 1 + (Number(filter.currentPageNumber) - 1) * 50 &&
+          item.index <= Number(filter.currentPageNumber) * 50
       )
-    )
-  }, [filter.currentPageNumber])
+    );
+  }, [filter.currentPageNumber]);
 
   useEffect(() => {
     setOrdersState(
-      filter.id === 'false' ?
-        _.sortBy(ordersState, 'id')
-        :
-        _.sortBy(ordersState, 'id').reverse()
-    )
-  }, [filter.id])
+      filter.id === 'false'
+        ? _.sortBy(ordersState, 'id')
+        : _.sortBy(ordersState, 'id').reverse()
+    );
+  }, [filter.id]);
 
   useEffect(() => {
     setOrdersState(
-      filter.transaction_time === 'false' ?
-        _.sortBy(ordersState, 'transaction_time')
-        :
-        _.sortBy(ordersState, 'transaction_time').reverse()
-    )
-  }, [filter.transaction_time])
+      filter.transaction_time === 'false'
+        ? _.sortBy(ordersState, 'transaction_time')
+        : _.sortBy(ordersState, 'transaction_time').reverse()
+    );
+  }, [filter.transaction_time]);
 
   return (
     <StMainPageWrap>
@@ -82,11 +87,14 @@ const MainPage = () => {
             </tr>
           </thead>
           <StTbody>
-            {
-              ordersState?.filter((item: TMockData) =>
-                item.index >= 1 + (Number(filter.currentPageNumber) - 1) * 50 &&
-                item.index <= Number(filter.currentPageNumber) * 50
-              ).map((item: TMockData) => (
+            {ordersState
+              ?.filter(
+                (item: TMockData) =>
+                  item.index >=
+                    1 + (Number(filter.currentPageNumber) - 1) * 50 &&
+                  item.index <= Number(filter.currentPageNumber) * 50
+              )
+              .map((item: TMockData) => (
                 <tr key={item.index}>
                   <td>{item.index}</td>
                   <td>{item.id}</td>
@@ -96,8 +104,7 @@ const MainPage = () => {
                   <td>{item.customer_name}</td>
                   <td>{item.currency}</td>
                 </tr>
-              ))
-            }
+              ))}
           </StTbody>
         </StTable>
         <div>
@@ -105,7 +112,9 @@ const MainPage = () => {
             {pages?.map(page => (
               <button
                 key={page}
-                onClick={() => setFiltering('currentPageNumber', page.toString())}>
+                onClick={() =>
+                  setFiltering('currentPageNumber', page.toString())
+                }>
                 {page}
               </button>
             ))}
