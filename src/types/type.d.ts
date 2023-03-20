@@ -23,6 +23,7 @@ export interface IOrderDataHooks {
   total: number;
   page: number;
   handleSortById: SortFunctionType;
+  handleSortByTime: SortFunctionType;
   params: URLSearchParams;
   setParams: SetURLSearchParams;
 }

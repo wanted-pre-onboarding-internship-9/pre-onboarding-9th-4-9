@@ -39,6 +39,20 @@ const OrderProvider = ({ children }: IContextProps) => {
     });
   }, []);
 
+  const handleSortByTime = useCallback((order: OrderType) => {
+    setOrderData(prev => {
+      const newArray = [...prev];
+      newArray.sort((current, next) =>
+        order === 'asc'
+          ? new Date(current.transaction_time).getTime() -
+            new Date(next.transaction_time).getTime()
+          : new Date(next.transaction_time).getTime() -
+            new Date(current.transaction_time).getTime()
+      );
+      return newArray;
+    });
+  }, []);
+
   useEffect(() => {
     instance
       .get('')
@@ -60,8 +74,11 @@ const OrderProvider = ({ children }: IContextProps) => {
   }, []);
 
   useEffect(() => {
-    if (!isLoading && params.get('sort_id') === 'desc') {
-      handleSortById('desc');
+    const sortType = params.get('sort');
+    if (!isLoading && sortType) {
+      const [standard, order] = sortType.split(':');
+      if (standard === 'id') handleSortById(order as OrderType);
+      if (standard === 'time') handleSortByTime(order as OrderType);
     }
   }, [isLoading]);
 
@@ -73,6 +90,7 @@ const OrderProvider = ({ children }: IContextProps) => {
         total,
         page,
         handleSortById,
+        handleSortByTime,
       }}>
       {children}
     </OrderContext.Provider>
