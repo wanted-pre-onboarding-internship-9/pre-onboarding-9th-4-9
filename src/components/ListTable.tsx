@@ -11,7 +11,13 @@ import styled from 'styled-components';
 
 import { IOrderList } from '../types/type';
 
-const ListTable = ({ data, items, page }: any) => {
+interface IProps {
+  data: IOrderList[];
+  items: number;
+  page: number;
+}
+
+const ListTable = ({ data, items, page }: IProps) => {
   const [onSort, setOnSort] = useState(false);
   const [sortData, setSortData] = useState(data);
 

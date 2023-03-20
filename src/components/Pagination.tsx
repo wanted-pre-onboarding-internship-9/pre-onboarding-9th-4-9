@@ -1,7 +1,12 @@
 import Pagination from 'react-js-pagination';
 import styled from 'styled-components';
 
-const Paginations = ({ page, handlePageChange }: any) => {
+interface IPaginationProps {
+  page: number;
+  handlePageChange: (page: number) => void;
+}
+
+const Paginations = ({ page, handlePageChange }: IPaginationProps) => {
   return (
     <PaginationBox>
       <Pagination
