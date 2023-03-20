@@ -1,5 +1,5 @@
-import instance from "./instance";
+import instance from './instance';
 
 export const mockDataApis = {
-    getData: () => instance.get(''),
-}
+  getData: () => instance.get(''),
+};

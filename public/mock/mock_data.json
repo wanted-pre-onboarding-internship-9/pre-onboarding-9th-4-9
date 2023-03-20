@@ -3990,13 +3990,5 @@
 "customer_id": 513,
 "customer_name": "Forrest Chaney",
 "currency": "$41.48"
-},
-{
-"id": 500,
-"transaction_time": "2023-03-08 11:54:15",
-"status": false,
-"customer_id": 514,
-"customer_name": "Rama Sheppard",
-"currency": "$0.46"
 }
 ]

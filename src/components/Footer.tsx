@@ -3,21 +3,21 @@ import styled from 'styled-components';
 import img_github from '../images/github_white.png';
 
 const Footer = () => {
-    return (
-        <STFooterWrap>
-            <StItemWrap>
-                © 2023. pre-onboarding-9th-4-9. All rights reserved.
-            </StItemWrap>
+  return (
+    <STFooterWrap>
+      <StItemWrap>
+        © 2023. pre-onboarding-9th-4-9. All rights reserved.
+      </StItemWrap>
 
-            <StItemWrap>
-                <StImg
-                    href='https://github.com/minhyeonhong/wanted-pre-onboarding-frontend'
-                    target='_blank'>
-                    <img src={img_github} alt='git hub' />
-                </StImg>
-            </StItemWrap>
-        </STFooterWrap>
-    );
+      <StItemWrap>
+        <StImg
+          href='https://github.com/minhyeonhong/wanted-pre-onboarding-frontend'
+          target='_blank'>
+          <img src={img_github} alt='git hub' />
+        </StImg>
+      </StItemWrap>
+    </STFooterWrap>
+  );
 };
 
 export default Footer;
