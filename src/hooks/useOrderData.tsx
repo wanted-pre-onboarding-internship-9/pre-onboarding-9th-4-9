@@ -8,7 +8,7 @@ import {
 import { useSearchParams } from 'react-router-dom';
 
 import instance from '../apis/instance';
-import { LIMIT, TODAY } from '../constants/constant';
+import { TODAY } from '../constants/constant';
 import {
   IContextProps,
   IOrder,
@@ -23,11 +23,9 @@ export const useOrderData = () => useContext(OrderContext) as IOrderDataHooks;
 const OrderProvider = ({ children }: IContextProps) => {
   const [orderData, setOrderData] = useState<IOrder[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [params, setParams] = useSearchParams();
+  const [params] = useSearchParams();
 
-  const total = orderData.length;
-  const page = Number(params.get('page')) || 1;
-  const offset = (Number(page) - 1) * LIMIT;
+  const sortType = params.get('sort');
 
   const handleSortById = useCallback((order: OrderType) => {
     setOrderData(prev => {
@@ -57,40 +55,31 @@ const OrderProvider = ({ children }: IContextProps) => {
     instance
       .get('')
       .then(({ data }) =>
-        setOrderData(
-          data.filter(
+        setOrderData(() => {
+          let newData = [...data];
+          newData = newData.filter(
             (order: IOrder) => order.transaction_time.split(' ')[0] === TODAY
-          )
-        )
+          );
+
+          return newData;
+        })
       )
       .finally(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {
-    if (!params.get('page')) {
-      params.set('page', '1');
-      setParams(params);
-    }
-  }, []);
-
-  useEffect(() => {
-    const sortType = params.get('sort');
     if (!isLoading && sortType) {
       const [standard, order] = sortType.split(':');
       if (standard === 'id') handleSortById(order as OrderType);
       if (standard === 'time') handleSortByTime(order as OrderType);
     }
-  }, [isLoading]);
+  }, [isLoading, sortType]);
 
   return (
     <OrderContext.Provider
       value={{
         orderData,
-        offset,
-        total,
-        page,
-        handleSortById,
-        handleSortByTime,
+        isLoading,
       }}>
       {children}
     </OrderContext.Provider>

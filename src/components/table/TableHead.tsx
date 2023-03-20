@@ -1,21 +1,34 @@
-import { Th, Thead, Tr } from '@chakra-ui/react';
+import { TriangleUpIcon } from '@chakra-ui/icons';
+import { Box, Th, Thead, Tr } from '@chakra-ui/react';
+import styled from '@emotion/styled';
 import { useSearchParams } from 'react-router-dom';
 
-import { useOrderData } from '../../hooks/useOrderData';
+const StyledTh = styled(Th)`
+  font-size: medium;
+  font-weight: 600;
+  letter-spacing: -1px;
+  padding: 15px;
+  color: black;
+  text-align: center;
+  margin: 0px auto;
+`;
+
+const StyledUpIcon = styled(TriangleUpIcon)<{ isReverse: boolean }>`
+  color: orange;
+  transform: ${props => (props.isReverse ? 'rotate(180deg)' : 'none')};
+  transition: transform 0.4s ease-in-out;
+`;
 
 const TableHead = () => {
-  const { handleSortById, handleSortByTime } = useOrderData();
   const [params, setParams] = useSearchParams();
 
   const sortType = params.get('sort');
 
   const onClickSortById = () => {
     if (!sortType || sortType !== 'id:desc') {
-      handleSortById('desc');
       params.set('sort', 'id:desc');
       setParams(params);
     } else {
-      handleSortById('asc');
       params.set('sort', 'id:asc');
       setParams(params);
     }
@@ -23,11 +36,9 @@ const TableHead = () => {
 
   const onClickSortByTime = () => {
     if (!sortType || sortType !== 'time:desc') {
-      handleSortByTime('desc');
       params.set('sort', 'time:desc');
       setParams(params);
     } else {
-      handleSortByTime('asc');
       params.set('sort', 'time:asc');
       setParams(params);
     }
@@ -36,12 +47,22 @@ const TableHead = () => {
   return (
     <Thead>
       <Tr>
-        <Th onClick={onClickSortById}>주문번호</Th>
-        <Th onClick={onClickSortByTime}>거래시간</Th>
-        <Th>주문처리상태</Th>
-        <Th>고객번호</Th>
-        <Th>고객이름</Th>
-        <Th>가격</Th>
+        <StyledTh onClick={onClickSortById} cursor='pointer' width='5'>
+          <Box display='inline-block' mr='2'>
+            주문번호
+          </Box>
+          <StyledUpIcon isReverse={sortType === 'id:desc'} />
+        </StyledTh>
+        <StyledTh onClick={onClickSortByTime} cursor='pointer'>
+          <Box display='inline-block' mr='2'>
+            거래시간
+          </Box>
+          <StyledUpIcon isReverse={sortType === 'time:desc'} />
+        </StyledTh>
+        <StyledTh>주문처리상태</StyledTh>
+        <StyledTh>고객번호</StyledTh>
+        <StyledTh>고객이름</StyledTh>
+        <StyledTh>가격</StyledTh>
       </Tr>
     </Thead>
   );

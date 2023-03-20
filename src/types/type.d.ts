@@ -8,6 +8,10 @@ export interface IContextProps {
   children: JSX.Element | JSX.Element[];
 }
 
+export interface IFilterContextProps extends IContextProps {
+  orderData: IOrder[];
+}
+
 export interface IOrder {
   currency: string;
   customer_id: number;
@@ -19,11 +23,11 @@ export interface IOrder {
 
 export interface IOrderDataHooks {
   orderData: IOrder[];
-  offset: number;
-  total: number;
-  page: number;
+  isLoading: boolean;
+}
+
+export interface IFilterHooks {
+  filterData: IOrder[];
   handleSortById: SortFunctionType;
   handleSortByTime: SortFunctionType;
-  params: URLSearchParams;
-  setParams: SetURLSearchParams;
 }
