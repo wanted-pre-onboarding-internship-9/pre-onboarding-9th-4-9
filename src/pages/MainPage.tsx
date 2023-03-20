@@ -1,22 +1,18 @@
 import { useState } from 'react';
-import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
-import { getDataAPI } from '../apis/instance';
 import ListTable from '../components/ListTable';
 import Paginations from '../components/Pagination';
+import useGetList from '../hooks/useGetList';
 
 const MainPage = () => {
-  const { isLoading, data } = useQuery('getData', () => getDataAPI());
+  const { data } = useGetList();
   const [page, setPage] = useState(1);
   const [items, setItems] = useState(50);
 
   const handlePageChange = (page: number) => {
     setPage(page);
   };
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
 
   // console.log(items * (page - 1), items * (page - 1) + items);
 
@@ -40,5 +36,6 @@ export default MainPage;
 const Title = styled.h1`
   display: flex;
   justify-content: center;
-  padding-top: 20px;
+  padding-top: 30px;
+  margin-bottom: 50px;
 `;

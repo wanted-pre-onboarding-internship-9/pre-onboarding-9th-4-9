@@ -2,13 +2,11 @@ import axios from 'axios';
 
 const baseURL = '/mock/mock_data.json';
 
-const instance = axios.create({
+export const instance = axios.create({
   baseURL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
-
-export default instance;
 
 export const getDataAPI = () => instance.get('');
