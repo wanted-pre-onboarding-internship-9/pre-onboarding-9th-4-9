@@ -1,6 +1,6 @@
 import {
-  Button,
   Input,
+  Select,
   Table,
   Tbody,
   Td,
@@ -8,7 +8,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import Pagination from '../components/Pagination';
@@ -19,6 +19,13 @@ const OrderListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const requestedDate = searchParams.get('date') || '2023-03-08';
 
+  const [sortByIdPlaceholder, setSortByIdPlaceholder] = useState(
+    searchParams.get('sort-id') || '정렬 선택'
+  );
+  const [sortByTimePlaceholder, setSortByTimePlaceholder] = useState(
+    searchParams.get('sort-time') || '정렬 선택'
+  );
+
   const splitDateAndTime = (dateWithTime: string) => {
     const [date, time] = dateWithTime.split(' ');
     return { date, time };
@@ -26,6 +33,22 @@ const OrderListPage = () => {
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     searchParams.set('date', event.target.value);
+    setSearchParams(searchParams);
+  };
+
+  const handleSortById: React.ChangeEventHandler<HTMLSelectElement> = event => {
+    setSortByTimePlaceholder('정렬 선택');
+    searchParams.delete('sort-time');
+    searchParams.set('sort-id', event.target.value);
+    setSearchParams(searchParams);
+  };
+
+  const handleSortByTime: React.ChangeEventHandler<
+    HTMLSelectElement
+  > = event => {
+    setSortByIdPlaceholder('정렬 선택');
+    searchParams.delete('sort-id');
+    searchParams.set('sort-time', event.target.value);
     setSearchParams(searchParams);
   };
 
@@ -42,7 +65,12 @@ const OrderListPage = () => {
             <Tr>
               <Th scope='col'>
                 주문 번호
-                <Button>정렬</Button>
+                <Select
+                  placeholder={sortByIdPlaceholder}
+                  onChange={handleSortById}>
+                  <option value='오름차순'>오름차순</option>
+                  <option value='내림차순'>내림차순</option>
+                </Select>
               </Th>
               <Th scope='col'>
                 거래일
@@ -54,7 +82,12 @@ const OrderListPage = () => {
               </Th>
               <Th scope='col'>
                 거래 시간
-                <Button>정렬</Button>
+                <Select
+                  placeholder={sortByTimePlaceholder}
+                  onChange={handleSortByTime}>
+                  <option value='오름차순'>오름차순</option>
+                  <option value='내림차순'>내림차순</option>
+                </Select>
               </Th>
               <Th scope='col'>주문 처리 상태</Th>
               <Th scope='col'>고객 번호</Th>
