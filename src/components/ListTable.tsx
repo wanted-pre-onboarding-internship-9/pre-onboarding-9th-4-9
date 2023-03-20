@@ -1,22 +1,51 @@
+import { Checkbox } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
 import { IOrderList } from '../types/type';
 
-const ListTable = ({ data, items, page }: any) => {
+function ListTable({ data, items, page }: any) {
   return (
-    <div>
-      {data?.data
-        .slice(items * (page - 1), items * (page - 1) + items)
-        ?.map((item: IOrderList) => (
-          <ol key={item.id}>
-            <li>{item.id}</li>
-            <li>{item.transaction_time.toString()}</li>
-            <li>{item.status}</li>
-            <li>{item.customer_id}</li>
-            <li>{item.customer_name}</li>
-            <li>{item.currency}</li>
-          </ol>
-        ))}
-    </div>
+    <TableContainer component={Paper}>
+      <Table size='small' sx={{ minWidth: 700 }} aria-label='simple table'>
+        <TableHead>
+          <TableRow>
+            <TableCell align='center'>거래시간</TableCell>
+            <TableCell align='center'>주문번호</TableCell>
+            <TableCell align='center'>고객번호</TableCell>
+            <TableCell align='center'>고객이름</TableCell>
+            <TableCell align='center'>가격</TableCell>
+            <TableCell align='center'>주문처리상태</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data?.data
+            .slice(items * (page - 1), items * (page - 1) + items)
+            ?.map((item: IOrderList) => (
+              <TableRow
+                key={item.id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell component='th' scope='row' align='center'>
+                  {item.transaction_time.toString()}
+                </TableCell>
+                <TableCell align='center'>{item.id}</TableCell>
+                <TableCell align='center'>{item.customer_id}</TableCell>
+                <TableCell align='center'>{item.customer_name}</TableCell>
+                <TableCell align='center'>{item.currency}</TableCell>
+                <TableCell align='center' padding='checkbox'>
+                  <Checkbox color='primary' checked={item.status} />
+                </TableCell>
+              </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
-};
+}
 
 export default ListTable;

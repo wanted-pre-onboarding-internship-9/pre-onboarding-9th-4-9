@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
+import styled from 'styled-components';
 
 import { getDataAPI } from '../apis/instance';
 import ListTable from '../components/ListTable';
@@ -21,7 +22,13 @@ const MainPage = () => {
 
   return (
     <>
-      <h1>switchwon</h1>
+      <Title>
+        <img
+          src='http://www.switchwon.com/assets/img/210716-Logo.png'
+          width='200px'
+        />
+      </Title>
+
       <ListTable data={data} items={items} page={page} />
       <Paginations page={page} handlePageChange={handlePageChange} />
     </>
@@ -29,3 +36,9 @@ const MainPage = () => {
 };
 
 export default MainPage;
+
+const Title = styled.h1`
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+`;
