@@ -19,7 +19,7 @@ import Pagination from '../components/Pagination';
 import useGetOrders from '../hooks/useGetOrders';
 
 const OrderListPage = () => {
-  const { isLoading, pageItems, isFetching, totalPage } = useGetOrders();
+  const { isLoading, pageItems, totalPage } = useGetOrders();
   const [searchParams, setSearchParams] = useSearchParams();
   const requestedDate = searchParams.get('date') || '2023-03-08';
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -88,7 +88,7 @@ const OrderListPage = () => {
 
   return (
     <>
-      {isLoading || isFetching ? (
+      {isLoading ? (
         <div>Loading...</div>
       ) : (
         <Table>

@@ -5,17 +5,19 @@ import { OrderType } from '../types';
 import useFilter from './useFilter';
 
 const useGetOrders = () => {
-  const {
-    isLoading,
-    isFetching,
-    data: orders,
-  }: UseQueryResult<OrderType[]> = useQuery(['orders'], () => getOrdersApi(), {
-    refetchOnWindowFocus: false,
-  });
+  const { isLoading, data: orders }: UseQueryResult<OrderType[]> = useQuery(
+    'orders',
+    () => getOrdersApi(),
+    {
+      refetchInterval: 5 * 1000,
+      refetchOnWindowFocus: 'always',
+      refetchIntervalInBackground: true,
+    }
+  );
 
   const { totalPage, pageItems } = useFilter(orders);
 
-  return { isLoading, isFetching, totalPage, pageItems };
+  return { isLoading, totalPage, pageItems };
 };
 
 export default useGetOrders;

@@ -1,6 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import ReactDOM from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { RouterProvider } from 'react-router-dom';
 
 import router from './shared/Router';
@@ -17,5 +18,6 @@ root.render(
       <GlobalStyle />
       <RouterProvider router={router} />
     </ChakraProvider>
+    <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
   </QueryClientProvider>
 );
