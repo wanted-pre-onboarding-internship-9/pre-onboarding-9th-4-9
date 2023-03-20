@@ -1,10 +1,15 @@
-import { Button } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-const Pagination = ({ totalPage }: { totalPage: number }) => {
+import useGetOrders from '../hooks/useGetOrders';
+
+const Pagination = () => {
   const [currentPageGroup, setCurrentPageGroup] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { isLoading, pageItems, totalPage } = useGetOrders();
+
+  const hasOrder = pageItems && pageItems.length > 0;
 
   const handlePageChange = (pageNumber: number) => {
     searchParams.set('page', pageNumber.toString());
@@ -25,19 +30,25 @@ const Pagination = ({ totalPage }: { totalPage: number }) => {
   const isLastGroup = currentPageGroup === Math.ceil(totalPage / 5);
 
   return (
-    <nav>
-      <Button
-        onClick={() => setCurrentPageGroup(group => group - 1)}
-        isDisabled={currentPageGroup === 1}>{`<`}</Button>
-      {visiblePageNumbers.map(pageNumber => (
-        <Button key={pageNumber} onClick={() => handlePageChange(pageNumber)}>
-          {pageNumber}
-        </Button>
-      ))}
-      <Button
-        onClick={() => setCurrentPageGroup(group => group + 1)}
-        isDisabled={isLastGroup}>{`>`}</Button>
-    </nav>
+    <Flex>
+      {hasOrder && (
+        <nav>
+          <Button
+            onClick={() => setCurrentPageGroup(group => group - 1)}
+            isDisabled={currentPageGroup === 1}>{`<`}</Button>
+          {visiblePageNumbers.map(pageNumber => (
+            <Button
+              key={pageNumber}
+              onClick={() => handlePageChange(pageNumber)}>
+              {pageNumber}
+            </Button>
+          ))}
+          <Button
+            onClick={() => setCurrentPageGroup(group => group + 1)}
+            isDisabled={isLastGroup}>{`>`}</Button>
+        </nav>
+      )}
+    </Flex>
   );
 };
 
