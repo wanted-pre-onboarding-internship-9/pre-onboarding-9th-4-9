@@ -1,14 +1,14 @@
 import axios from 'axios';
+import type { AxiosRequestConfig } from 'axios';
 
-const baseURL = '/mock/mock_data.json';
+const axiosConfig: AxiosRequestConfig = {
+  baseURL: '/mock/mock_data.json',
+};
 
-const instance = axios.create({
-  baseURL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+const instance = axios.create(axiosConfig);
+
+instance.interceptors.response.use(response => {
+  return response.data;
 });
 
 export default instance;
-
-export const chartApi = () => instance.get('');
