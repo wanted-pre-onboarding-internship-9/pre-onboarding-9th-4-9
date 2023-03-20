@@ -1,10 +1,12 @@
 import { Box, Button } from '@chakra-ui/react';
+import { useSearchParams } from 'react-router-dom';
 
 import { LIMIT } from '../../constants/constant';
 import { useOrderData } from '../../hooks/useOrderData';
 
 const Pagination = () => {
-  const { total, page, params, setParams } = useOrderData();
+  const { total, page } = useOrderData();
+  const [params, setParams] = useSearchParams();
   const numPages = Math.ceil(total / LIMIT);
 
   const handlePage = (page: number) => {

@@ -1,4 +1,8 @@
+/* eslint-disable*/
 import { SetURLSearchParams } from 'react-router-dom';
+
+export type OrderType = 'asc' | 'desc';
+export type SortFunctionType = (order: OrderType) => void;
 
 export interface IContextProps {
   children: JSX.Element | JSX.Element[];
@@ -18,7 +22,7 @@ export interface IOrderDataHooks {
   offset: number;
   total: number;
   page: number;
-  handleSortById: () => void;
+  handleSortById: SortFunctionType;
   params: URLSearchParams;
   setParams: SetURLSearchParams;
 }
