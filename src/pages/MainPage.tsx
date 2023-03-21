@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import styled from 'styled-components';
+
 import Search from '../components/Search';
 import TableItem from '../components/TableItem';
 import useFilter from '../hooks/useFilter';
-
 import useGetOrders from '../hooks/useGetOrders';
 import { TMockData } from '../types/mockDataTypes';
 
@@ -31,10 +31,9 @@ const MainPage = () => {
             </tr>
           </thead>
           <StTbody>
-            {
-              orders.map((item: TMockData) => (
-                <TableItem key={item.id} item={item} />
-              ))}
+            {orders.map((item: TMockData) => (
+              <TableItem key={item.id} item={item} />
+            ))}
           </StTbody>
         </StTable>
         <StPageBtnWrap>
@@ -65,7 +64,7 @@ const StMainPageWrap = styled.div`
 `;
 
 const StSearchBox = styled.div`
-  width:80%;
+  width: 80%;
   height: 10%;
   background-color: orange;
 `;

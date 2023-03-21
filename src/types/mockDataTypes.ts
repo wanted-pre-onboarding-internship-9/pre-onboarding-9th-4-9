@@ -24,7 +24,6 @@ export type TFilter = {
   currentPageNumber: number;
   sortKey: 'id' | 'transaction_time';
   sortValue: 'asc' | 'desc';
-  status: 'all' | boolean;
+  status: 'all' | 'true' | 'false';
   customer_name: string;
 };
-
