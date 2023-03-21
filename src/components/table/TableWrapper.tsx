@@ -8,8 +8,6 @@ import Table from './Table';
 const TableWrapper = () => {
   const { orderData } = useOrderData();
 
-  console.log(orderData);
-
   return (
     <FilterProvider orderData={orderData}>
       <Box width='80vw'>

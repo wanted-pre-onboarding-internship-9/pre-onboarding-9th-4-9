@@ -1,23 +1,24 @@
 import { CalendarIcon } from '@chakra-ui/icons';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 
 const SideBar = () => {
   return (
     <Flex
+      zIndex='banner'
       position='fixed'
       left='0'
       insetY='0'
-      width='56'
-      bgColor='orange.300'
+      width='60'
+      bgColor='orange.100'
       padding='17px'
       direction='column'>
-      <Box fontSize='3xl' mb='12'>
-        switchone
+      <Box mb='16'>
+        <Image src={require('../../images/logo.png')} />
       </Box>
-      <Box>
+      <Box ml='3'>
         <Flex alignItems='center' gap='10px' color='gray.800' cursor='pointer'>
           <CalendarIcon />
-          <Box>주문내역관리</Box>
+          <Box letterSpacing='tighter'>주문내역관리</Box>
         </Flex>
       </Box>
     </Flex>

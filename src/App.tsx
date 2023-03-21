@@ -9,7 +9,7 @@ function App() {
     <Box>
       <Header />
       <SideBar />
-      <Box ml='56' mt='16'>
+      <Box ml='60' mt='16'>
         <Outlet />
       </Box>
     </Box>

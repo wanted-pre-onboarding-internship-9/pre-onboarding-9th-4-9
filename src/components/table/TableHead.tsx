@@ -3,21 +3,9 @@ import { Box, Th, Thead, Tr } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { useSearchParams } from 'react-router-dom';
 
-const StyledTh = styled(Th)`
-  font-size: medium;
-  font-weight: 600;
-  letter-spacing: -1px;
-  padding: 15px;
-  color: black;
-  text-align: center;
-  margin: 0px auto;
-`;
-
-const StyledUpIcon = styled(TriangleUpIcon)<{ isReverse: boolean }>`
-  color: orange;
-  transform: ${props => (props.isReverse ? 'rotate(180deg)' : 'none')};
-  transition: transform 0.4s ease-in-out;
-`;
+interface IIconProps {
+  isReverse: boolean;
+}
 
 const TableHead = () => {
   const [params, setParams] = useSearchParams();
@@ -85,3 +73,21 @@ const TableHead = () => {
 };
 
 export default TableHead;
+
+const StyledTh = styled(Th)`
+  font-size: medium;
+  font-weight: 600;
+  letter-spacing: -1px;
+  padding: 15px;
+  color: black;
+  text-align: center;
+  margin: 0px auto;
+`;
+
+const StyledUpIcon = styled(TriangleUpIcon, {
+  shouldForwardProp: propName => propName !== 'isReverse',
+})<IIconProps>`
+  color: orange;
+  transform: ${props => (props.isReverse ? 'rotate(180deg)' : 'none')};
+  transition: transform 0.4s ease-in-out;
+`;

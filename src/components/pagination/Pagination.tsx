@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { LIMIT } from '../../constants/constant';
 import { useFilter } from '../../hooks/useFilter';
+import PageButton from './PageButton';
 
 const Pagination = () => {
   const { filterData } = useFilter();
@@ -13,34 +14,53 @@ const Pagination = () => {
   const numPages = Math.ceil(total / LIMIT);
 
   const handlePage = (page: number) => {
+    setTimeout(() => {
+      window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
+    }, 100);
     params.set('page', String(page));
     setParams(params);
-    window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
   };
   const handleLeftPage = (page: number) => {
     if (page === 1) return;
+    setTimeout(() => {
+      window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
+    }, 100);
     params.set('page', String(page - 1));
     setParams(params);
-    window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
   };
   const handleRightPage = (page: number) => {
     if (page === numPages) return;
+    setTimeout(() => {
+      window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
+    }, 100);
     params.set('page', String(page + 1));
     setParams(params);
-    window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
   };
 
   return (
     <Flex gap='3'>
-      <Button onClick={() => handleLeftPage(page)}>&lt;</Button>
+      <Button
+        onClick={() => handleLeftPage(page)}
+        fontWeight='bold'
+        bgColor='transparent'>
+        &lt;
+      </Button>
       {Array(numPages)
         .fill(0)
         .map((_, i) => (
-          <Button key={i + 1} onClick={() => handlePage(i + 1)}>
-            {i + 1}
-          </Button>
+          <PageButton
+            key={i + 1}
+            text={i + 1}
+            onClick={() => handlePage(i + 1)}
+            isActive={page === i + 1}
+          />
         ))}
-      <Button onClick={() => handleRightPage(page)}>&gt;</Button>
+      <Button
+        onClick={() => handleRightPage(page)}
+        fontWeight='bold'
+        bgColor='transparent'>
+        &gt;
+      </Button>
     </Flex>
   );
 };

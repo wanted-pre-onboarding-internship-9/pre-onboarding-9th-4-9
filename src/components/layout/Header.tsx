@@ -4,6 +4,7 @@ import { Box, Flex } from '@chakra-ui/react';
 const Header = () => {
   return (
     <Flex
+      zIndex='banner'
       height='16'
       bgColor='gray.200'
       position='fixed'
