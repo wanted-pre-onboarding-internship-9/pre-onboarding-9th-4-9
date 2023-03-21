@@ -1,4 +1,4 @@
-import { Checkbox } from '@mui/material';
+import { Button, ButtonGroup, Checkbox } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -19,9 +19,11 @@ interface IProps {
 
 const ListTable = ({ data, items, page }: IProps) => {
   const [onSort, setOnSort] = useState(false);
+  const [onTrue, setOnTrue] = useState(false);
+  const [onFalse, setOnFalse] = useState(false);
   const [sortData, setSortData] = useState(data);
 
-  const handleTimeSort = () => {
+  const handleSortByTime = () => {
     setSortData(
       data?.sort(function (a: IOrderList, b: IOrderList) {
         return (
@@ -32,7 +34,7 @@ const ListTable = ({ data, items, page }: IProps) => {
     );
   };
 
-  const handleIdSort = () => {
+  const handleSortById = () => {
     setSortData(
       data?.sort(function (a: IOrderList, b: IOrderList) {
         return b.id - a.id;
@@ -40,31 +42,55 @@ const ListTable = ({ data, items, page }: IProps) => {
     );
   };
 
+  const handleSortByTrue = (type: boolean) => {
+    if (type === true)
+      setSortData(data?.filter((item: IOrderList) => item.status === true));
+    if (type === false)
+      setSortData(data?.filter((item: IOrderList) => item.status === false));
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table size='small' sx={{ minWidth: 700 }} aria-label='simple table'>
         <TableHead>
           <TableRow>
-            <TableCell align='center'>{''}</TableCell>
+            <TableCell align='center'>
+              <ButtonGroup>
+                <Button
+                  onClick={() => {
+                    setOnTrue(!onTrue);
+                    handleSortByTrue(true);
+                  }}>
+                  true
+                </Button>
+                <Button
+                  onClick={() => {
+                    setOnFalse(!onFalse);
+                    handleSortByTrue(false);
+                  }}>
+                  false
+                </Button>
+              </ButtonGroup>
+            </TableCell>
             <TableCell align='center'>
               거래시간
-              <Button
+              <StButton
                 onClick={() => {
                   setOnSort(!onSort);
-                  handleTimeSort();
+                  handleSortByTime();
                 }}>
                 ▼
-              </Button>
+              </StButton>
             </TableCell>
             <TableCell align='center'>
               주문번호
-              <Button
+              <StButton
                 onClick={() => {
                   setOnSort(!onSort);
-                  handleIdSort();
+                  handleSortById();
                 }}>
                 ▼
-              </Button>
+              </StButton>
             </TableCell>
             <TableCell align='center'>고객번호</TableCell>
             <TableCell align='center'>고객이름</TableCell>
@@ -72,7 +98,7 @@ const ListTable = ({ data, items, page }: IProps) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {onSort
+          {onSort || onTrue || onFalse
             ? sortData
                 ?.slice(items * (page - 1), items * (page - 1) + items)
                 ?.map((item: IOrderList) => (
@@ -117,7 +143,7 @@ const ListTable = ({ data, items, page }: IProps) => {
 
 export default ListTable;
 
-const Button = styled.button`
+const StButton = styled.button`
   cursor: pointer;
   color: #fd7e14;
 `;
