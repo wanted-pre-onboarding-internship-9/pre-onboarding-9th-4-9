@@ -14,25 +14,19 @@ const Pagination = () => {
   const numPages = Math.ceil(total / LIMIT);
 
   const handlePage = (page: number) => {
-    setTimeout(() => {
-      window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
-    }, 100);
+    window.scrollTo({ top: 0, left: 0 });
     params.set('page', String(page));
     setParams(params);
   };
   const handleLeftPage = (page: number) => {
     if (page === 1) return;
-    setTimeout(() => {
-      window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
-    }, 100);
+    window.scrollTo({ top: 0, left: 0 });
     params.set('page', String(page - 1));
     setParams(params);
   };
   const handleRightPage = (page: number) => {
     if (page === numPages) return;
-    setTimeout(() => {
-      window.scrollTo({ behavior: 'smooth', top: 0, left: 0 });
-    }, 100);
+    window.scrollTo({ top: 0, left: 0 });
     params.set('page', String(page + 1));
     setParams(params);
   };
