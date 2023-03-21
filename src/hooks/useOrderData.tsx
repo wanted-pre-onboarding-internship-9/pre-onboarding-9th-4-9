@@ -91,7 +91,7 @@ const OrderProvider = ({ children }: IContextProps) => {
     const intervalId = setInterval(fetchData, 5000);
 
     return () => clearInterval(intervalId);
-  }, [fetchData]);
+  }, []);
 
   useEffect(() => {
     if (!isLoading && sortType) {

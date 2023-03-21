@@ -33,8 +33,10 @@ const SearchBox = () => {
       <Box display='flex' alignItems='center' gap='2'>
         <Box whiteSpace='nowrap'>이름검색</Box>
         <Input id='search_input' ref={inputValue} type='text' />
-        <Button type='submit'>검색</Button>
-        <Button px='7' onClick={handleSearchInit}>
+        <Button type='submit' colorScheme='orange'>
+          검색
+        </Button>
+        <Button px='7' onClick={handleSearchInit} colorScheme='orange'>
           검색 초기화
         </Button>
       </Box>

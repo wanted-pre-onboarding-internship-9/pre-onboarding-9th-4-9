@@ -25,7 +25,9 @@ const Filter = () => {
       <Box width='30vw'>
         <SearchBox />
       </Box>
-      <Button onClick={handleFilterInit}>필터링 초기화</Button>
+      <Button onClick={handleFilterInit} colorScheme='orange'>
+        필터링 초기화
+      </Button>
     </Flex>
   );
 };
