@@ -2,14 +2,15 @@ import { Button, Flex } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import useGetOrders from '../hooks/useGetOrders';
-
-const Pagination = () => {
+const Pagination = ({
+  hasOrder,
+  totalPage,
+}: {
+  hasOrder: boolean;
+  totalPage: number;
+}) => {
   const [currentPageGroup, setCurrentPageGroup] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
-  const { isLoading, pageItems, totalPage } = useGetOrders();
-
-  const hasOrder = pageItems && pageItems.length > 0;
 
   const handlePageChange = (pageNumber: number) => {
     searchParams.set('page', pageNumber.toString());

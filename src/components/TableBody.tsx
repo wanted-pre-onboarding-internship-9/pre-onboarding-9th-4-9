@@ -1,10 +1,14 @@
 import { Tbody, Td, Tr } from '@chakra-ui/react';
 
-import useGetOrders from '../hooks/useGetOrders';
+import { OrderType } from '../types';
 
-const TableBody = () => {
-  const { isLoading, pageItems } = useGetOrders();
-
+const TableBody = ({
+  isLoading,
+  pageItems,
+}: {
+  isLoading: boolean;
+  pageItems: OrderType[] | undefined;
+}) => {
   const splitDateAndTime = (dateWithTime: string) => {
     const [date, time] = dateWithTime.split(' ');
     return { date, time };
@@ -15,7 +19,9 @@ const TableBody = () => {
   return (
     <Tbody>
       {isLoading ? (
-        <div>Loading...</div>
+        <Tr>
+          <Td colSpan={7}>Loading...</Td>
+        </Tr>
       ) : hasOrder ? (
         pageItems?.map(item => (
           <Tr key={item.id}>

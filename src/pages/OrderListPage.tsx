@@ -3,8 +3,12 @@ import { Table, Th, Thead, Tr } from '@chakra-ui/react';
 import Pagination from '../components/Pagination';
 import TableBody from '../components/TableBody';
 import * as Tablehead from '../components/tableHead';
+import useGetOrders from '../hooks/useGetOrders';
 
 const OrderListPage = () => {
+  const { isLoading, pageItems, totalPage } = useGetOrders();
+  const hasOrder = (pageItems && pageItems.length > 0) || false;
+
   return (
     <>
       <Table>
@@ -20,9 +24,9 @@ const OrderListPage = () => {
             <Th scope='col'>가격</Th>
           </Tr>
         </Thead>
-        <TableBody />
+        <TableBody isLoading={isLoading} pageItems={pageItems} />
       </Table>
-      <Pagination />
+      <Pagination hasOrder={hasOrder} totalPage={totalPage} />
     </>
   );
 };
