@@ -36,18 +36,22 @@ const ClientNameCell = () => {
   };
 
   return (
-    <Th scope='col'>
-      고객 이름
+    <Th scope='col' fontSize='sm' textAlign='center'>
       <form onSubmit={handleSearchName}>
         <InputGroup>
-          <Input ref={searchInputRef} />
-          <InputRightElement>
+          <Input bg='white' size='xs' ref={searchInputRef} />
+          <InputRightElement h='24px'>
             <IconButton
+              variant='link'
+              size='xs'
               type='submit'
               aria-label='Search database'
               icon={<SearchIcon />}
             />
             <IconButton
+              marginRight='10px'
+              variant='link'
+              size='xs'
               onClick={handleResetSearch}
               type='button'
               aria-label='Search database'

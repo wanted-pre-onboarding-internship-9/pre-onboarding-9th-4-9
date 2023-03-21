@@ -1,38 +1,38 @@
 import { Select, Th } from '@chakra-ui/react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 const IdCell = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [placeholder, setPlaceholder] = useState<string>(
-    searchParams.get('sort-id') || '정렬 선택'
+  const [selectValue, setSelectValue] = useState<string>(
+    searchParams.get('sort-id') || ''
   );
-  const selectRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
-    setPlaceholder(searchParams.get('sort-id') || '정렬 선택');
+    const selectedId = searchParams.get('sort-id') || '';
+    setSelectValue(selectedId);
   }, [searchParams]);
 
   const handleSortById: React.ChangeEventHandler<HTMLSelectElement> = event => {
-    setSearchParams(searchParams => {
+    if (event.target.value === '') {
+      searchParams.delete('sort-id');
+      setSearchParams(searchParams);
+    } else {
       searchParams.delete('sort-time');
       searchParams.delete('page');
       searchParams.set('sort-id', event.target.value);
-      return new URLSearchParams(searchParams);
-    });
-
-    if (selectRef.current) {
-      selectRef.current.selectedIndex = 0;
+      setSearchParams(searchParams);
     }
   };
 
   return (
-    <Th scope='col'>
-      주문 번호
+    <Th scope='col' fontSize='sm' textAlign='center' gap='5px'>
       <Select
-        placeholder={placeholder}
-        onChange={handleSortById}
-        ref={selectRef}>
+        bg='white'
+        size='xs'
+        value={selectValue}
+        placeholder='정렬 선택'
+        onChange={handleSortById}>
         <option value='오름차순'>오름차순</option>
         <option value='내림차순'>내림차순</option>
       </Select>

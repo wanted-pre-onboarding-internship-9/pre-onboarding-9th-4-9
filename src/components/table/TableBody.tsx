@@ -1,6 +1,6 @@
 import { Tbody, Td, Tr } from '@chakra-ui/react';
 
-import { OrderType } from '../types';
+import { OrderType } from '../../types';
 
 const TableBody = ({
   isLoading,
@@ -25,13 +25,19 @@ const TableBody = ({
       ) : hasOrder ? (
         pageItems?.map(item => (
           <Tr key={item.id}>
-            <Td>{item.id}</Td>
-            <Td>{splitDateAndTime(item.transaction_time).date}</Td>
-            <Td>{splitDateAndTime(item.transaction_time).time}</Td>
-            <Td>{item.status ? '완료' : '미완료'}</Td>
-            <Td>{item.customer_id}</Td>
-            <Td>{item.customer_name}</Td>
-            <Td>{item.currency}</Td>
+            <Td textAlign='center'>{item.id}</Td>
+            <Td textAlign='center'>
+              {splitDateAndTime(item.transaction_time).date}
+            </Td>
+            <Td textAlign='center'>
+              {splitDateAndTime(item.transaction_time).time}
+            </Td>
+            <Td textAlign='center' color={item.status ? '#6b84ff' : '#ff6b6b'}>
+              {item.status ? '완료' : '미완료'}
+            </Td>
+            <Td textAlign='center'>{item.customer_id}</Td>
+            <Td textAlign='center'>{item.customer_name}</Td>
+            <Td textAlign='center'>{item.currency}</Td>
           </Tr>
         ))
       ) : (

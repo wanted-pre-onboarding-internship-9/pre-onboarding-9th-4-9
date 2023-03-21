@@ -13,9 +13,15 @@ const DateCell = () => {
   };
 
   return (
-    <Th scope='col'>
-      거래일
-      <Input onChange={handleDateChange} type='date' value={requestedDate} />
+    <Th scope='col' textAlign='center'>
+      <Input
+        bg='white'
+        onChange={handleDateChange}
+        size='xs'
+        type='date'
+        border='1px solid black'
+        value={requestedDate}
+      />
     </Th>
   );
 };
