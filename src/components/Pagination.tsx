@@ -1,14 +1,14 @@
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { useTableQuery } from '../query/useTableQuery';
+import { useTable } from '../hooks/useTable';
 import { IOrder } from '../types/type';
 
 export default function PaginationSection({ data = [] }: { data?: IOrder[] }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = searchParams.get('page') || '1';
 
-  const { pageLength } = useTableQuery(data);
+  const { pageLength } = useTable(data);
 
   const handlePage = (target: number) => {
     searchParams.set('page', `${target}`);

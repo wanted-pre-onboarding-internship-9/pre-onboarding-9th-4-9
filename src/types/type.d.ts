@@ -6,4 +6,3 @@ export interface IOrder {
   customer_name: string;
   currency: string;
 }
-type Arr = IOrder[];

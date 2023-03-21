@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { useTableQuery } from '../query/useTableQuery';
+import { useTable } from '../hooks/useTable';
 import { IOrder } from '../types/type';
 
 type TSort = {
@@ -11,9 +11,10 @@ type TSort = {
   sortTime: string | null;
 };
 
-const pageSplit = (arr: IOrder[], chunk: number): Array<IOrder[]> => {
+const pageSplit = (order: IOrder[], chunk: number): Array<IOrder[]> => {
   const result = [];
-  for (let i = 0; i < arr.length; i += chunk) result.push(arr.slice(i, i + 50));
+  for (let i = 0; i < order.length; i += chunk)
+    result.push(order.slice(i, i + 50));
   return result;
 };
 const sort = ({ tableData, sortId, sortTime }: TSort): IOrder[] => {
@@ -47,7 +48,7 @@ export default function TableSection({ data }: { data: IOrder[] }) {
   const sortId = searchParams.get('sortId');
   const sortTime = searchParams.get('sortTime');
 
-  const { tableData } = useTableQuery(data);
+  const { tableData } = useTable(data);
 
   const list = useMemo(
     () => pageSplit(sort({ tableData, sortId, sortTime }), 50) || [],

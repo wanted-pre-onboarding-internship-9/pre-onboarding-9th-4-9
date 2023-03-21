@@ -3,10 +3,10 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
 import instance from '../apis/instance';
-import FilterSection from '../components/FilterSection';
-import PaginationSection from '../components/PaginationSection';
-import SearchSection from '../components/SearchSection';
-import TableSection from '../components/TableSection';
+import Filter from '../components/Filter';
+import Pagination from '../components/Pagination';
+import Search from '../components/Search';
+import Table from '../components/Table';
 import { IOrder } from '../types/type';
 
 export async function fetchProjects() {
@@ -33,14 +33,15 @@ const MainPage = () => {
     refetchInterval: 5000,
     refetchIntervalInBackground: true,
   });
+
   if (isLoading) <span>Loading...</span>;
   if (isError) <span>Error...</span>;
   return (
     <Main>
-      <SearchSection setSearch={setSearch} />
-      <FilterSection />
-      {data && <PaginationSection data={data} />}
-      {data && <TableSection data={data} />}
+      <Search setSearch={setSearch} />
+      <Filter />
+      {data && <Pagination data={data} />}
+      {data && <Table data={data} />}
     </Main>
   );
 };
