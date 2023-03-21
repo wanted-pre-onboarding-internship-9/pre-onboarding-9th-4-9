@@ -28,13 +28,10 @@ const MainPage = () => {
     [search]
   );
 
-  const { data, isLoading, isError } = useQuery('order', fetchProjects, {
+  const { data, isLoading } = useQuery('order', fetchProjects, {
     select: handleSearch,
-    refetchInterval: 5000,
-    refetchIntervalInBackground: true,
   });
   if (isLoading) <span>Loading...</span>;
-  if (isError) <span>Error...</span>;
   return (
     <Main>
       <SearchSection setSearch={setSearch} />
