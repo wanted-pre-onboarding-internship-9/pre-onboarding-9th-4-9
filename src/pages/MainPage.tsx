@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import ListTable from '../components/ListTable';
@@ -24,7 +24,6 @@ const MainPage = () => {
           width='200px'
         />
       </Title>
-
       <ListTable data={data} items={items} page={page} />
       <Paginations page={page} handlePageChange={handlePageChange} />
     </>

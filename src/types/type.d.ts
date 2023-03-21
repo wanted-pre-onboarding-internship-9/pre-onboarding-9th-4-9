@@ -6,3 +6,9 @@ export interface IOrderList {
   customer_name: string;
   currency: string;
 }
+
+export interface IProps {
+  data: IOrderList[];
+  items: number;
+  page: number;
+}
