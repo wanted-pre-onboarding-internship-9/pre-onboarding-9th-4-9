@@ -5,8 +5,9 @@ import { IOrderList } from '../types/type';
 
 const useGetList = () => {
   return useQuery(['getData'], getDataAPI, {
-    staleTime: Infinity,
-    refetchOnWindowFocus: false,
+    refetchInterval: 5000,
+    refetchIntervalInBackground: true, //브라우저에 focus 되어있지 않아도 refetch가 되게해준다.
+
     select: data => {
       const orderList = data?.data
         .sort(function (a: IOrderList, b: IOrderList) {
@@ -15,7 +16,6 @@ const useGetList = () => {
         .filter((item: IOrderList) =>
           item.transaction_time.includes('2023-03-08')
         );
-
       return orderList;
     },
   });
