@@ -1,6 +1,8 @@
 export const TO_DAY = '2023-03-08';
 
-export const ONE_PAGE_LENGTH = 50;
+export const ONE_PAGE_ITEM_LENGTH = 50;
+
+export const PAGE_LENGTH = 10;
 
 export type TMockData = {
   id: number;
@@ -15,13 +17,14 @@ export type TMockData = {
 export type TToDayMockData = {
   toDayMockData: TMockData[];
   pages: number[];
-  totalPageNumber: number;
+  totalPageCount: number;
 };
 
 export type TFilter = {
-  currentPageNumber: string;
-  id: string;
-  transaction_time: string;
-  status: string;
+  currentPageNumber: number;
+  sortKey: 'id' | 'transaction_time';
+  sortValue: 'asc' | 'desc';
+  status: 'all' | boolean;
   customer_name: string;
 };
+

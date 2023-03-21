@@ -1,9 +1,8 @@
 import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
-
 import instance from '../apis/instance';
 import {
-  ONE_PAGE_LENGTH,
+  ONE_PAGE_ITEM_LENGTH,
   TMockData,
   TO_DAY,
   TToDayMockData,
@@ -27,16 +26,18 @@ const useGetOrders = () => {
             index: index + 1,
           }));
 
-        const dividePages = toDayMockData.length / ONE_PAGE_LENGTH;
-        const totalPageNumber = Number.isInteger(dividePages)
+        const dividePages = toDayMockData.length / ONE_PAGE_ITEM_LENGTH;
+
+        const totalPageCount = Number.isInteger(dividePages)
           ? dividePages
           : Math.trunc(dividePages) + 1;
+
         const pages: number[] = [];
-        for (let i = 1; i <= totalPageNumber; i++) {
+        for (let i = 1; i <= totalPageCount; i++) {
           pages.push(i);
         }
 
-        return { toDayMockData, pages, totalPageNumber };
+        return { toDayMockData, pages, totalPageCount };
       },
       staleTime: 1000 * 5,
       cacheTime: 1000 * 5,
@@ -48,7 +49,7 @@ const useGetOrders = () => {
   return {
     toDayMockData: data?.toDayMockData,
     pages: data?.pages,
-    totalPageNumber: data?.totalPageNumber,
+    totalPageCount: data?.totalPageCount,
     isLoading,
   };
 };

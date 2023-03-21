@@ -1,78 +1,22 @@
 import _ from 'lodash';
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
+import Search from '../components/Search';
+import TableItem from '../components/TableItem';
+import useFilter from '../hooks/useFilter';
 
 import useGetOrders from '../hooks/useGetOrders';
-import { TFilter, TMockData } from '../types/mockDataTypes';
+import { TMockData } from '../types/mockDataTypes';
 
 const MainPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { toDayMockData, pages, totalPageNumber, isLoading } = useGetOrders();
-  const [ordersState, setOrdersState] = useState<TMockData[]>([]);
-  const [filter, setFilter] = useState<TFilter>({
-    currentPageNumber: '1',
-    id: 'false',
-    transaction_time: 'false',
-    status: 'all',
-    customer_name: '',
-  });
+  const { toDayMockData, pages, totalPageCount, isLoading } = useGetOrders();
 
-  const setFiltering = (key: string, value?: string) => {
-    switch (key) {
-      case 'id':
-        setFilter({
-          ...filter,
-          [key]: filter.id === 'true' ? 'false' : 'true',
-        });
-        break;
-      case 'transaction_time':
-        setFilter({
-          ...filter,
-          [key]: filter.transaction_time === 'true' ? 'false' : 'true',
-        });
-        break;
-      default:
-        setFilter({ ...filter, [key]: value });
-        break;
-    }
-  };
-
-  useEffect(() => {
-    if (toDayMockData === undefined) return;
-    setOrdersState(toDayMockData);
-  }, [toDayMockData]);
-
-  useEffect(() => {
-    if (toDayMockData === undefined) return;
-    setOrdersState(
-      toDayMockData?.filter(
-        (item: TMockData) =>
-          item.index >= 1 + (Number(filter.currentPageNumber) - 1) * 50 &&
-          item.index <= Number(filter.currentPageNumber) * 50
-      )
-    );
-  }, [filter.currentPageNumber]);
-
-  useEffect(() => {
-    setOrdersState(
-      filter.id === 'false'
-        ? _.sortBy(ordersState, 'id')
-        : _.sortBy(ordersState, 'id').reverse()
-    );
-  }, [filter.id]);
-
-  useEffect(() => {
-    setOrdersState(
-      filter.transaction_time === 'false'
-        ? _.sortBy(ordersState, 'transaction_time')
-        : _.sortBy(ordersState, 'transaction_time').reverse()
-    );
-  }, [filter.transaction_time]);
+  const [orders, filters, setFilters] = useFilter(toDayMockData, isLoading);
 
   return (
     <StMainPageWrap>
-      <StSearchWrap>search</StSearchWrap>
+      <StSearchBox>
+        <Search filters={filters} setFilters={setFilters} />
+      </StSearchBox>
       <StTableWrap>
         <StTable>
           <thead>
@@ -87,46 +31,23 @@ const MainPage = () => {
             </tr>
           </thead>
           <StTbody>
-            {ordersState
-              ?.filter(
-                (item: TMockData) =>
-                  item.index >=
-                    1 + (Number(filter.currentPageNumber) - 1) * 50 &&
-                  item.index <= Number(filter.currentPageNumber) * 50
-              )
-              .map((item: TMockData) => (
-                <tr key={item.index}>
-                  <td>{item.index}</td>
-                  <td>{item.id}</td>
-                  <td>{item.transaction_time}</td>
-                  <td>{item.status ? 'true' : 'false'}</td>
-                  <td>{item.customer_id}</td>
-                  <td>{item.customer_name}</td>
-                  <td>{item.currency}</td>
-                </tr>
+            {
+              orders.map((item: TMockData) => (
+                <TableItem key={item.id} item={item} />
               ))}
           </StTbody>
         </StTable>
-        <div>
-          <StPageBtnWrap>
-            {pages?.map(page => (
-              <button
-                key={page}
-                onClick={() =>
-                  setFiltering('currentPageNumber', page.toString())
-                }>
-                {page}
-              </button>
-            ))}
-          </StPageBtnWrap>
-          <div>
-            <button onClick={() => setFiltering('id')}>주문번호</button>
-            <br />
-            <button onClick={() => setFiltering('transaction_time')}>
-              거래일&거래시간
+        <StPageBtnWrap>
+          {pages?.map(page => (
+            <button
+              key={page}
+              onClick={() =>
+                setFilters({ ...filters, currentPageNumber: page })
+              }>
+              {page}
             </button>
-          </div>
-        </div>
+          ))}
+        </StPageBtnWrap>
       </StTableWrap>
     </StMainPageWrap>
   );
@@ -143,7 +64,8 @@ const StMainPageWrap = styled.div`
   gap: 10px;
 `;
 
-const StSearchWrap = styled.div`
+const StSearchBox = styled.div`
+  width:80%;
   height: 10%;
   background-color: orange;
 `;
