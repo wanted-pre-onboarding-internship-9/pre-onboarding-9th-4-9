@@ -7,6 +7,7 @@ const DateCell = () => {
   const requestedDate = searchParams.get('date') || '2023-03-08';
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    searchParams.delete('page');
     searchParams.set('date', event.target.value);
     setSearchParams(searchParams);
   };

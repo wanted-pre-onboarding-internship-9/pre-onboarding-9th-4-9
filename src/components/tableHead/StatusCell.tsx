@@ -12,6 +12,7 @@ const StatusCell = () => {
   const handleFilterBySatus: React.ChangeEventHandler<
     HTMLSelectElement
   > = event => {
+    searchParams.delete('page');
     searchParams.set('status', event.target.value);
     setSearchParams(searchParams);
   };

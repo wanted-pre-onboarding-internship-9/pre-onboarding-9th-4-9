@@ -15,16 +15,21 @@ const ClientNameCell = () => {
 
   const handleSearchName: React.FormEventHandler<HTMLFormElement> = event => {
     event.preventDefault();
+
     const targetEl = event.target as HTMLFormElement;
     const inputValue = (targetEl[0] as HTMLInputElement).value;
 
-    searchParams.set('search', inputValue);
-    setSearchParams(searchParams);
+    if (inputValue) {
+      searchParams.set('search', inputValue);
+      searchParams.delete('page');
+      setSearchParams(searchParams);
+    }
   };
 
   const handleResetSearch = () => {
     if (searchInputRef.current) {
       searchInputRef.current.value = '';
+      searchParams.delete('page');
       searchParams.delete('search');
       setSearchParams(searchParams);
     }
