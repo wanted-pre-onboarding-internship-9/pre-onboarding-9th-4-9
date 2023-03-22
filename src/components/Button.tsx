@@ -1,18 +1,23 @@
 import styled from 'styled-components';
 
 interface IButtonProps {
-    text: string | number;
-    isOn?: boolean;
-    type?: 'button' | 'submit' | 'reset';
-    onClick?: () => void;
+  text: string | number;
+  isOn?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  onClick?: () => void;
 }
 
-function Button({ text = "", onClick, isOn = true, type = 'button' }: IButtonProps) {
-    return (
-        <StButton onClick={onClick} isOn={isOn} type={type}>
-            {text}
-        </StButton>
-    );
+function Button({
+  text = '',
+  onClick,
+  isOn = true,
+  type = 'button',
+}: IButtonProps) {
+  return (
+    <StButton onClick={onClick} isOn={isOn} type={type}>
+      {text}
+    </StButton>
+  );
 }
 
 export default Button;

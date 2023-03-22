@@ -39,8 +39,25 @@ const Search = ({ filters, setFilters }: IProps) => {
   return (
     <StSearchWrap>
       <StSearchFilterWrap>
-        <Button text='주문번호' onClick={() => setSort('id')} isOn={filters.sortKey === 'id' && filters.sortValue === 'desc' ? true : false} />
-        <Button text='거래일&거래시간' onClick={() => setSort('transaction_time')} isOn={filters.sortKey === 'transaction_time' && filters.sortValue === 'desc' ? true : false} />
+        <Button
+          text='주문번호'
+          onClick={() => setSort('id')}
+          isOn={
+            filters.sortKey === 'id' && filters.sortValue === 'desc'
+              ? true
+              : false
+          }
+        />
+        <Button
+          text='거래일&거래시간'
+          onClick={() => setSort('transaction_time')}
+          isOn={
+            filters.sortKey === 'transaction_time' &&
+            filters.sortValue === 'desc'
+              ? true
+              : false
+          }
+        />
 
         <select name='space' onChange={setStatus}>
           <option value='all'>주문처리 전체</option>
@@ -52,10 +69,7 @@ const Search = ({ filters, setFilters }: IProps) => {
         <label>
           <StSeachInput data-testid='modify-input' type='text' />
         </label>
-        <Button data-testid='submit-button'
-          type='submit'
-          text='검색'
-        />
+        <Button data-testid='submit-button' type='submit' text='검색' />
       </StForm>
     </StSearchWrap>
   );
@@ -66,22 +80,22 @@ export default Search;
 const StSearchWrap = styled.div`
   display: flex;
   justify-content: center;
-  gap : 5px;
+  gap: 5px;
 `;
 
 const StSearchFilterWrap = styled.div`
   display: flex;
   justify-content: center;
-  gap : 5px;
-`
+  gap: 5px;
+`;
 const StForm = styled.form`
   display: flex;
-  gap : 5px;
-`
+  gap: 5px;
+`;
 
 const StSeachInput = styled.input`
   font-size: 14px;
   font-weight: bold;
   padding: 6px 10px;
   background-color: #fafafa;
-`
+`;

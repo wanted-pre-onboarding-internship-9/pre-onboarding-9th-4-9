@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { TMockData } from '../types/mockDataTypes';
 
 type TProps = {
@@ -25,4 +26,4 @@ const StItemWrap = styled.div`
   display: grid;
   text-align: center;
   grid-template-columns: repeat(7, 1fr);
-`
+`;

@@ -1,23 +1,25 @@
 import _ from 'lodash';
 import styled from 'styled-components';
-import Paging from '../components/Paging';
 
+import Paging from '../components/Paging';
 import Search from '../components/Search';
 import TableItem from '../components/TableItem';
 import useFilter from '../hooks/useFilter';
 import useGetOrders from '../hooks/useGetOrders';
-import { TMockData, ONE_PAGE_ITEM_LENGTH } from '../types/mockDataTypes';
+import { ONE_PAGE_ITEM_LENGTH, TMockData } from '../types/mockDataTypes';
 
 const MainPage = () => {
   const { toDayMockData, isLoading } = useGetOrders();
 
-  const [orders, pagingItems, filters, setFilters] = useFilter(toDayMockData, isLoading);
+  const [orders, pagingItems, filters, setFilters] = useFilter(
+    toDayMockData,
+    isLoading
+  );
 
   const { pages, totalPageCount } = pagingItems;
 
   return (
     <StMainPageWrap>
-
       <StSearchBox>
         <Search filters={filters} setFilters={setFilters} />
       </StSearchBox>
@@ -35,11 +37,21 @@ const MainPage = () => {
 
         <StTableBody>
           {orders.map((item: TMockData, index: number) => {
-            const itemNumber = (index + 1) + ((filters.currentPageNumber - 1) * ONE_PAGE_ITEM_LENGTH);
-            return <TableItem key={item.id} item={item} itemNumber={itemNumber} />
+            const itemNumber =
+              index +
+              1 +
+              (filters.currentPageNumber - 1) * ONE_PAGE_ITEM_LENGTH;
+            return (
+              <TableItem key={item.id} item={item} itemNumber={itemNumber} />
+            );
           })}
         </StTableBody>
-        <Paging pages={pages} totalPageCount={totalPageCount} filters={filters} setFilters={setFilters} />
+        <Paging
+          pages={pages}
+          totalPageCount={totalPageCount}
+          filters={filters}
+          setFilters={setFilters}
+        />
       </StTableWrap>
     </StMainPageWrap>
   );
@@ -64,8 +76,8 @@ const StTableWrap = styled.div`
   width: 80%;
   height: 70%;
   display: flex;
-  flex-direction:column;
-  gap : 10px;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 const StTableHead = styled.div`
@@ -74,24 +86,23 @@ const StTableHead = styled.div`
   grid-template-columns: repeat(7, 1fr);
   div {
     font-weight: bold;
-    background-color : orange;
-    color : white;
+    background-color: orange;
+    color: white;
     border-radius: 5px;
     border: solid 1px white;
-    padding : 4px;
+    padding: 4px;
   }
-`
+`;
 
 const StTableBody = styled.div`
   height: 100%;
   overflow: auto;
   &::-webkit-scrollbar {
-    width:2px;
+    width: 2px;
     height: 8px;
   }
-  &::-webkit-scrollbar-thumb{
-    background-color : lightgray;
-    border-radius:6px;
+  &::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 6px;
   }
-`
-
+`;

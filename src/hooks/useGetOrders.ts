@@ -2,10 +2,7 @@ import { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 
 import instance from '../apis/instance';
-import {
-  TMockData,
-  TO_DAY,
-} from '../types/mockDataTypes';
+import { TMockData, TO_DAY } from '../types/mockDataTypes';
 
 const useGetOrders = () => {
   const getMockData = async () => {

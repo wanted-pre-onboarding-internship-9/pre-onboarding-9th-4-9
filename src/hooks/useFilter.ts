@@ -11,7 +11,10 @@ import {
 const useFilter = (toDayMockData: TMockData[] = [], isLoading: boolean) => {
   const [originDatas, setOriginDatas] = useState<TMockData[]>([]);
   const [orders, setOrders] = useState<any>([]);
-  const [pagingItems, setPaingItems] = useState<TPagingItems>({ pages: [], totalPageCount: 0 });
+  const [pagingItems, setPaingItems] = useState<TPagingItems>({
+    pages: [],
+    totalPageCount: 0,
+  });
   const [filters, setFilters] = useState<TFilter>({
     currentPageNumber: 1,
     sortKey: 'id',
@@ -41,7 +44,7 @@ const useFilter = (toDayMockData: TMockData[] = [], isLoading: boolean) => {
     }
 
     return { pages, totalPageCount };
-  }
+  };
 
   useEffect(() => {
     if (isLoading) return;
@@ -54,16 +57,16 @@ const useFilter = (toDayMockData: TMockData[] = [], isLoading: boolean) => {
     const filteringData =
       filters.status === 'all'
         ? originDatas.filter((toDayItem: TMockData) =>
-          toDayItem.customer_name.includes(filters.customer_name)
-        )
-        : originDatas
-          .filter(
-            (toDayItem: TMockData) =>
-              toDayItem.status.toString() === filters.status
+            toDayItem.customer_name.includes(filters.customer_name)
           )
-          .filter((statusItem: TMockData) =>
-            statusItem.customer_name.includes(filters.customer_name)
-          );
+        : originDatas
+            .filter(
+              (toDayItem: TMockData) =>
+                toDayItem.status.toString() === filters.status
+            )
+            .filter((statusItem: TMockData) =>
+              statusItem.customer_name.includes(filters.customer_name)
+            );
 
     setPaingItems(getPaging(filteringData));
 
@@ -76,7 +79,6 @@ const useFilter = (toDayMockData: TMockData[] = [], isLoading: boolean) => {
     );
     setOrders(orderDatas);
   }, [filters]);
-
 
   return [orders, pagingItems, filters, setFilters];
 };
