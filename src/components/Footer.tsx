@@ -11,7 +11,7 @@ const Footer = () => {
 
       <StItemWrap>
         <StImg
-          href='https://github.com/minhyeonhong/wanted-pre-onboarding-frontend'
+          href='https://github.com/wanted-pre-onboarding-internship-9/pre-onboarding-9th-4-9'
           target='_blank'>
           <img src={img_github} alt='git hub' />
         </StImg>

@@ -1,20 +1,28 @@
+import styled from 'styled-components';
 import { TMockData } from '../types/mockDataTypes';
 
 type TProps = {
   item: TMockData;
+  itemNumber: number;
 };
-const TableItem = ({ item }: TProps) => {
+const TableItem = ({ item, itemNumber }: TProps) => {
   return (
-    <tr>
-      <td>{item.index}</td>
-      <td>{item.id}</td>
-      <td>{item.transaction_time}</td>
-      <td>{item.status ? 'true' : 'false'}</td>
-      <td>{item.customer_id}</td>
-      <td>{item.customer_name}</td>
-      <td>{item.currency}</td>
-    </tr>
+    <StItemWrap>
+      <div>{itemNumber}</div>
+      <div>{item.id}</div>
+      <div>{item.transaction_time}</div>
+      <div>{item.status ? 'true' : 'false'}</div>
+      <div>{item.customer_id}</div>
+      <div>{item.customer_name}</div>
+      <div>{item.currency}</div>
+    </StItemWrap>
   );
 };
 
 export default TableItem;
+
+const StItemWrap = styled.div`
+  display: grid;
+  text-align: center;
+  grid-template-columns: repeat(7, 1fr);
+`
