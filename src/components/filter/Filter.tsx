@@ -6,6 +6,8 @@ import SelectBox from './SelectBox';
 
 const Filter = () => {
   const [params, setParams] = useSearchParams();
+  const isSearch = params.get('search');
+  const isFilter = params.get('filter');
 
   const handleFilterInit = () => {
     params.set('sort', 'id:asc');
@@ -25,7 +27,10 @@ const Filter = () => {
       <Box width='30vw'>
         <SearchBox />
       </Box>
-      <Button onClick={handleFilterInit} colorScheme='orange'>
+      <Button
+        onClick={handleFilterInit}
+        colorScheme='orange'
+        data-testid={isSearch || isFilter ? 'need to init' : 'already init'}>
         필터링 초기화
       </Button>
     </Flex>

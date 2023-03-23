@@ -3,18 +3,17 @@ import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { LIMIT } from '../../constants/constant';
-import { useFilter } from '../../hooks/useFilter';
+import { IOrder } from '../../types/type';
 import TableHead from './TableHead';
 import TableRow from './TableRow';
 
-const Table = () => {
-  const { filterData } = useFilter();
+const Table = ({ data }: { data: IOrder[] }) => {
   const [params, setParams] = useSearchParams();
 
   const page = Number(params.get('page')) || 1;
   const offset = (Number(page) - 1) * LIMIT;
 
-  const pageData = filterData.slice(offset, offset + LIMIT);
+  const pageData = data.slice(offset, offset + LIMIT);
 
   useEffect(() => {
     if (pageData.length === 0) {

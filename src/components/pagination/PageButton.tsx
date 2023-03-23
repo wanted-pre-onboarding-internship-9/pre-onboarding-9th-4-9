@@ -16,7 +16,8 @@ const PageButton = (props: ButtonProps) => {
       _hover={{ bgColor: 'orange.400' }}
       _active={{ bgColor: 'orange.500' }}
       color='white'
-      fontWeight='bold'>
+      fontWeight='bold'
+      data-testid={isActive && `${text}`}>
       {text}
     </Button>
   );

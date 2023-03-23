@@ -4,7 +4,6 @@ import { useSearchParams } from 'react-router-dom';
 
 import Filter from '../components/filter/Filter';
 import TableWrapper from '../components/table/TableWrapper';
-import { OrderProvider } from '../hooks/useOrderData';
 
 const MainPage = () => {
   const [params, setParams] = useSearchParams();
@@ -27,9 +26,7 @@ const MainPage = () => {
         주문내역관리
       </Heading>
       <Filter />
-      <OrderProvider>
-        <TableWrapper />
-      </OrderProvider>
+      <TableWrapper />
     </Flex>
   );
 };

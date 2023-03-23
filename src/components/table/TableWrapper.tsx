@@ -1,22 +1,21 @@
 import { Box } from '@chakra-ui/react';
 
-import { FilterProvider } from '../../hooks/useFilter';
-import { useOrderData } from '../../hooks/useOrderData';
+import useOrderData from '../../hooks/useOrderData';
 import Pagination from '../pagination/Pagination';
 import Table from './Table';
 
 const TableWrapper = () => {
-  const { orderData } = useOrderData();
+  const { filterData } = useOrderData();
 
   return (
-    <FilterProvider orderData={orderData}>
-      <Box width='80vw'>
-        <Table />
+    <>
+      <Box width='70vw' marginX='auto'>
+        <Table data={filterData} />
       </Box>
       <Box alignSelf='center'>
-        <Pagination />
+        <Pagination total={filterData.length} />
       </Box>
-    </FilterProvider>
+    </>
   );
 };
 

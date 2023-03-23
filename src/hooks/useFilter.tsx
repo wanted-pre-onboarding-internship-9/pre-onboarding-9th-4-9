@@ -1,13 +1,9 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { IFilterContextProps, IFilterHooks, IOrder } from '../types/type';
+import { IOrder } from '../types/type';
 
-const FilterContext = createContext({});
-
-export const useFilter = () => useContext(FilterContext) as IFilterHooks;
-
-const FilterProvider = ({ children, orderData = [] }: IFilterContextProps) => {
+const useFilter = (orderData: IOrder[]) => {
   const [filterData, setFilterData] = useState<IOrder[]>(orderData);
   const [params] = useSearchParams();
 
@@ -31,11 +27,7 @@ const FilterProvider = ({ children, orderData = [] }: IFilterContextProps) => {
     setFilterData(newData);
   }, [orderData, isFilter, searchValue]);
 
-  return (
-    <FilterContext.Provider value={{ filterData }}>
-      {children}
-    </FilterContext.Provider>
-  );
+  return filterData;
 };
 
-export { FilterProvider };
+export default useFilter;

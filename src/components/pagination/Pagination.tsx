@@ -2,32 +2,30 @@ import { Button, Flex } from '@chakra-ui/react';
 import { useSearchParams } from 'react-router-dom';
 
 import { LIMIT } from '../../constants/constant';
-import { useFilter } from '../../hooks/useFilter';
 import PageButton from './PageButton';
 
-const Pagination = () => {
-  const { filterData } = useFilter();
+const Pagination = ({ total }: { total: number }) => {
   const [params, setParams] = useSearchParams();
 
-  const total = filterData.length;
   const page = Number(params.get('page')) || 1;
   const numPages = Math.ceil(total / LIMIT);
 
-  const handlePage = (page: number) => {
+  const handlePage = (setPage: number) => {
+    if (setPage === page) return;
     window.scrollTo({ top: 0, left: 0 });
-    params.set('page', String(page));
+    params.set('page', String(setPage));
     setParams(params);
   };
-  const handleLeftPage = (page: number) => {
-    if (page === 1) return;
+  const handleLeftPage = (setPage: number) => {
+    if (setPage === 1) return;
     window.scrollTo({ top: 0, left: 0 });
-    params.set('page', String(page - 1));
+    params.set('page', String(setPage - 1));
     setParams(params);
   };
-  const handleRightPage = (page: number) => {
-    if (page === numPages) return;
+  const handleRightPage = (setPage: number) => {
+    if (setPage === numPages) return;
     window.scrollTo({ top: 0, left: 0 });
-    params.set('page', String(page + 1));
+    params.set('page', String(setPage + 1));
     setParams(params);
   };
 
