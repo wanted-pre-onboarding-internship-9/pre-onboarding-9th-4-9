@@ -12,19 +12,16 @@ const Pagination = ({ total }: { total: number }) => {
 
   const handlePage = (setPage: number) => {
     if (setPage === page) return;
-    window.scrollTo({ top: 0, left: 0 });
     params.set('page', String(setPage));
     setParams(params);
   };
   const handleLeftPage = (setPage: number) => {
     if (setPage === 1) return;
-    window.scrollTo({ top: 0, left: 0 });
     params.set('page', String(setPage - 1));
     setParams(params);
   };
   const handleRightPage = (setPage: number) => {
     if (setPage >= numPages) return;
-    window.scrollTo({ top: 0, left: 0 });
     params.set('page', String(setPage + 1));
     setParams(params);
   };
