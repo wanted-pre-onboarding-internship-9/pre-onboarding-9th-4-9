@@ -13,7 +13,7 @@ const SideBar = () => {
       padding='17px'
       direction='column'>
       <Box mb='16'>
-        <Image src={require('../../images/logo.png')} />
+        <Image src={`${process.env.PUBLIC_URL}/assets/logo.png`} />
       </Box>
       <Box ml='3'>
         <Flex alignItems='center' gap='10px' color='gray.800' cursor='pointer'>
