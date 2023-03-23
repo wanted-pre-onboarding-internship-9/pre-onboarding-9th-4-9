@@ -57,16 +57,16 @@ const useFilter = (toDayMockData: TMockData[] = [], isLoading: boolean) => {
     const filteringData =
       filters.status === 'all'
         ? originDatas.filter((toDayItem: TMockData) =>
-            toDayItem.customer_name.includes(filters.customer_name)
-          )
+          toDayItem.customer_name.includes(filters.customer_name)
+        )
         : originDatas
-            .filter(
-              (toDayItem: TMockData) =>
-                toDayItem.status.toString() === filters.status
-            )
-            .filter((statusItem: TMockData) =>
-              statusItem.customer_name.includes(filters.customer_name)
-            );
+          .filter(
+            (toDayItem: TMockData) =>
+              toDayItem.status.toString() === filters.status
+          )
+          .filter((statusItem: TMockData) =>
+            statusItem.customer_name.includes(filters.customer_name)
+          );
 
     setPaingItems(getPaging(filteringData));
 

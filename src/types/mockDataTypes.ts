@@ -14,12 +14,6 @@ export type TMockData = {
   index: number;
 };
 
-export type TToDayMockData = {
-  toDayMockData: TMockData[];
-  pages: number[];
-  totalPageCount: number;
-};
-
 export type TPagingItems = {
   pages: number[];
   totalPageCount: number;

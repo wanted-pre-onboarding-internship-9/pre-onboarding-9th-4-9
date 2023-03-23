@@ -53,16 +53,16 @@ const Search = ({ filters, setFilters }: IProps) => {
           onClick={() => setSort('transaction_time')}
           isOn={
             filters.sortKey === 'transaction_time' &&
-            filters.sortValue === 'desc'
+              filters.sortValue === 'desc'
               ? true
               : false
           }
         />
 
         <select name='space' onChange={setStatus}>
-          <option value='all'>주문처리 전체</option>
-          <option value='true'>주문처리 true</option>
-          <option value='false'>주문처리 false</option>
+          <option value='all'>전체</option>
+          <option value='true'>완료</option>
+          <option value='false'>처리중</option>
         </select>
       </StSearchFilterWrap>
       <StForm onSubmit={onSubmit}>

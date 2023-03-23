@@ -1,6 +1,4 @@
-import _ from 'lodash';
 import styled from 'styled-components';
-
 import Paging from '../components/Paging';
 import Search from '../components/Search';
 import TableItem from '../components/TableItem';

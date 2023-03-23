@@ -11,8 +11,8 @@ const TableItem = ({ item, itemNumber }: TProps) => {
     <StItemWrap>
       <div>{itemNumber}</div>
       <div>{item.id}</div>
-      <div>{item.transaction_time}</div>
-      <div>{item.status ? 'true' : 'false'}</div>
+      <div data-testid='transaction_time'>{item.transaction_time}</div>
+      <div>{item.status ? '완료' : '처리중'}</div>
       <div>{item.customer_id}</div>
       <div>{item.customer_name}</div>
       <div>{item.currency}</div>
