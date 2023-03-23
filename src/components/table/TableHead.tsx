@@ -33,7 +33,7 @@ const TableHead = () => {
   };
 
   return (
-    <Thead>
+    <Thead position='sticky' top='0' bg='white'>
       <Tr>
         <StyledTh width='5'>
           <Box

@@ -29,7 +29,7 @@ const Table = ({ data }: { data: IOrder[] }) => {
   }, [data]);
 
   return (
-    <TableContainer>
+    <TableContainer overflowY='scroll' h='65vh'>
       <TableMain colorScheme='orange'>
         <TableHead />
         <Tbody>
