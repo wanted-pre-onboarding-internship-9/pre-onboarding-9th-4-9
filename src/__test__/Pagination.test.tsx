@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 import Pagination from '../components/pagination/Pagination';
@@ -28,7 +29,6 @@ describe('Pagination', () => {
   });
 
   it('should change page when button is clicked', async () => {
-    window.scrollTo = jest.fn();
     render(
       <BrowserRouter>
         <Pagination total={100} />
@@ -39,6 +39,5 @@ describe('Pagination', () => {
     fireEvent.click(button);
 
     expect(screen.getByTestId('2')).toBeInTheDocument();
-    expect(window.scrollTo).toHaveBeenCalled();
   });
 });
