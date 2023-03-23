@@ -1,4 +1,10 @@
-import { TableContainer, Table as TableMain, Tbody } from '@chakra-ui/react';
+import {
+  TableContainer,
+  Table as TableMain,
+  Tbody,
+  Td,
+  Tr,
+} from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -20,7 +26,7 @@ const Table = ({ data }: { data: IOrder[] }) => {
       params.set('page', '1');
       setParams(params);
     }
-  }, []);
+  }, [data]);
 
   return (
     <TableContainer>
@@ -30,6 +36,13 @@ const Table = ({ data }: { data: IOrder[] }) => {
           {pageData.map(element => (
             <TableRow key={element.id} element={element} />
           ))}
+          {pageData.length === 0 && (
+            <Tr>
+              <Td textAlign='center' colSpan={7}>
+                데이터가 없습니다.
+              </Td>
+            </Tr>
+          )}
         </Tbody>
       </TableMain>
     </TableContainer>
