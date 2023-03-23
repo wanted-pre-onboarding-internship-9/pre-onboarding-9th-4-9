@@ -20,7 +20,7 @@ const Table = ({ data }: { data: IOrder[] }) => {
       params.set('page', '1');
       setParams(params);
     }
-  }, []);
+  }, [data]);
 
   return (
     <TableContainer>
