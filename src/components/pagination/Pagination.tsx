@@ -8,7 +8,7 @@ const Pagination = ({ total }: { total: number }) => {
   const [params, setParams] = useSearchParams();
 
   const page = Number(params.get('page')) || 1;
-  const numPages = Math.ceil(total / LIMIT);
+  const numPages = Math.ceil(total / LIMIT) || 1;
 
   const handlePage = (setPage: number) => {
     if (setPage === page) return;
@@ -23,7 +23,7 @@ const Pagination = ({ total }: { total: number }) => {
     setParams(params);
   };
   const handleRightPage = (setPage: number) => {
-    if (setPage === numPages) return;
+    if (setPage >= numPages) return;
     window.scrollTo({ top: 0, left: 0 });
     params.set('page', String(setPage + 1));
     setParams(params);
