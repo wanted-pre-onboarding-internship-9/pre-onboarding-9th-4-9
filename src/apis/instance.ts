@@ -8,5 +8,3 @@ export const instance = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
-export const getDataAPI = () => instance.get('');

@@ -6,7 +6,7 @@ import Paginations from '../components/Pagination';
 import useGetList from '../hooks/useGetList';
 
 const MainPage = () => {
-  const { data } = useGetList();
+  const { orderData } = useGetList();
   const [page, setPage] = useState(1);
   const [items, setItems] = useState(50);
 
@@ -24,7 +24,7 @@ const MainPage = () => {
           width='200px'
         />
       </Title>
-      <ListTable data={data} items={items} page={page} />
+      <ListTable data={orderData} items={items} page={page} />
       <Paginations page={page} handlePageChange={handlePageChange} />
     </>
   );
